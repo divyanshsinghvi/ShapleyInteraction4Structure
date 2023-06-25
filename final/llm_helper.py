@@ -12,18 +12,19 @@ import scipy
 model_id = "gpt2"
 
 def get_prediction_fn(model):
-    return lambda x : np.max(model(x).logits.detach().numpy())
-    # predict_fn = lambda x : get_logodds(model(x).logits)
+    # return lambda x : np.max(model(x).logits.detach().numpy())
+    return lambda x : get_logodds(model(x).logits)
 
 def get_model():
     return GPT2LMHeadModel.from_pretrained(model_id)#.to(device)
 
-def get_samples(seq_len):
+def get_samples(seq_len, N, k):
     tokenizer = GPT2TokenizerFast.from_pretrained(model_id, pad_token = '[PAD]')
     test = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")
     encoding = tokenizer([test["text"][num] for num in [4, 11, 12, 16]],padding=True,  truncation=True,max_length =seq_len, return_tensors ='pt').input_ids
+    # encoding = tokenizer([test["text"][num] for num, val in enumerate(test['text']) if val != ''],padding=True,  truncation=True,max_length =seq_len, return_tensors ='pt').input_ids
     print(encoding.shape)
-    X = encoding[:,:seq_len-1]
+    X = encoding[:N+k,:seq_len-1]
     return X
 
 def get_logodds(logits):

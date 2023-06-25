@@ -48,7 +48,7 @@ print("Seq Length: %s" % seq_len)
 np.random.seed(1)
 
 model = llm_helper.get_model()
-X = llm_helper.get_samples(seq_len)
+X = llm_helper.get_samples(seq_len, N, k)
 
 # TODO: Fix the prediction fn. Might have to incorporate
 #  target variable to get the logit for the target variable instead of max
@@ -89,3 +89,8 @@ pd.DataFrame(X_samp).to_csv('data/llm_input.csv')
 pd.DataFrame(shapley_values).to_csv('data/llm_shapley_values.csv')
 pd.DataFrame(partial_residuals).to_csv('data/llm_partial_residuals.csv')
 
+"""
+TODO: 
+1. How to get base line features for the text generation process? 
+2. What is the appropriate metric for shapley score. 
+"""
