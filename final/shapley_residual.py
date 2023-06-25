@@ -4,24 +4,17 @@ import scipy
 import numpy as np
 from scipy.linalg import lstsq
 from scipy.linalg import norm 
-from sklearn import preprocessing
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import roc_auc_score
 import os
 from util import RegressionGame
-from util_sparse import getShapleyResiduals, getShapleyProjection
-import xgboost
-from sklearn.model_selection import train_test_split
-import sklearn
+from util_sparse import getShapleyProjection
 import os
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from tqdm import tqdm
-import scipy
 import shap
-from transformers import GPT2LMHeadModel, GPT2TokenizerFast
+import llm_helper
 # device = "cuda"
 # model_id = "gpt2"
 # model = GPT2LMHeadModel.from_pretrained(model_id).to(device)
@@ -53,60 +46,17 @@ print("Seq Length: %s" % seq_len)
 
 # Setup
 np.random.seed(1)
-from transformers import GPT2LMHeadModel, GPT2TokenizerFast
 
-# device = "cpu"
-model_id = "gpt2"
-model = GPT2LMHeadModel.from_pretrained(model_id)#.to(device)
-tokenizer = GPT2TokenizerFast.from_pretrained(model_id, pad_token = '[PAD]')
+model = llm_helper.get_model()
+X = llm_helper.get_samples(seq_len)
 
-from datasets import load_dataset
-
-
-# data preprocessing functions
-test = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")
-
-encoding = tokenizer([test["text"][num] for num in [4, 11, 12, 16]],padding=True,  truncation=True,max_length =seq_len, return_tensors ='pt').input_ids
-
-print(encoding.shape)
-X = encoding[:,:seq_len-1]
-# y = encoding[:,seq_len-1]
+# TODO: Fix the prediction fn. Might have to incorporate
+#  target variable to get the logit for the target variable instead of max
+predict_fn = llm_helper.get_prediction_fn(model)
 
 
 
 torch.no_grad()
-
-def get_logodds(logits):
-    """ Calculates log odds from logits.
-
-    This function passes the logits through softmax and then computes log odds for the output(target sentence) ids.
-
-    Parameters
-    ----------
-    logits: numpy.ndarray
-        An array of logits generated from the model.
-
-    Returns
-    -------
-    numpy.ndarray
-        Computes log odds for corresponding output ids.
-    """
-    # set output ids for which scores are to be extracted
-    def calc_logodds(arr):
-        # probs = np.exp(arr) / np.exp(arr).sum(-1)
-        probs = scipy.special.softmax(arr)
-        logodds = scipy.special.logit(probs)
-        return logodds
-
-    # pass logits through softmax, get the token corresponding score and convert back to log odds (as one vs all)
-    logodds = np.apply_along_axis(calc_logodds, -1, logits.detach().numpy())
-
-    logodds = np.max(logodds, axis=-1)
-    # logodds_for_output_ids = logodds[:, np.array(range(logodds.shape[1])), :]
-    return logodds
-
-# predict_fn = lambda x : get_logodds(model(x).logits)
-predict_fn = lambda x : np.max(model(x).logits.detach().numpy())
 
 obj = RegressionGame(X = X[0:k], function = predict_fn, transform = torch.as_tensor)
 
