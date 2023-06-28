@@ -39,7 +39,10 @@ class RegressionGame():
     # Returns: vector of predictions using model trained on all features
     def getWholePrediction(self, X):
         assert self.function is not None
-        return self.function(self.transform(X))
+        if self.y is None:
+            return self.function(self.transform(X))
+        else:
+            return self.function(self.transform(X), self.y)
 
     # Predict by masking features not in indexed subset with that from their marginal distributions
     # Parameters: i = integer, x = 1 x F numpy array, X_bg = n x F numpy array

@@ -48,17 +48,17 @@ print("Seq Length: %s" % seq_len)
 np.random.seed(1)
 
 model = llm_helper.get_model()
-X = llm_helper.get_samples(seq_len, N, k)
+X, y = llm_helper.get_samples(seq_len, N, k)
 
 # TODO: Fix the prediction fn. Might have to incorporate
 #  target variable to get the logit for the target variable instead of max
-predict_fn = llm_helper.get_prediction_fn(model)
+predict_fn = llm_helper.get_prediction_fn(model, y = True)
 
 
 
 torch.no_grad()
 
-obj = RegressionGame(X = X[0:k], function = predict_fn, transform = torch.as_tensor)
+obj = RegressionGame(X = X[0:k], y=y[0:k], function = predict_fn, transform = torch.as_tensor)
 
 X_samp = X[k:(N+k)]
 

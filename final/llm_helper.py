@@ -11,9 +11,12 @@ import scipy
 
 model_id = "gpt2"
 
-def get_prediction_fn(model):
+def get_prediction_fn(model, y = None):
     # return lambda x : np.max(model(x).logits.detach().numpy())
-    return lambda x : get_logodds(model(x).logits)
+    if y is None:
+        return lambda x : get_logodds(model(x).logits)
+    else:
+        return lambda x, y  : get_logodds(model(x).logits, y)
 
 def get_model():
     return GPT2LMHeadModel.from_pretrained(model_id)#.to(device)
@@ -25,9 +28,10 @@ def get_samples(seq_len, N, k):
     # encoding = tokenizer([test["text"][num] for num, val in enumerate(test['text']) if val != ''],padding=True,  truncation=True,max_length =seq_len, return_tensors ='pt').input_ids
     print(encoding.shape)
     X = encoding[:N+k,:seq_len-1]
-    return X
+    y = encoding[:N+k,seq_len-1]
+    return X, y
 
-def get_logodds(logits):
+def get_logodds(logits, y = None):
     """ Calculates log odds from logits.
 
     This function passes the logits through softmax and then computes log odds for the output(target sentence) ids.
@@ -43,6 +47,9 @@ def get_logodds(logits):
     # pass logits through softmax, get the token corresponding score and convert back to log odds (as one vs all)
     logodds = np.apply_along_axis(calc_logodds, -1, logits.detach().numpy())
 
-    logodds = np.max(logodds, axis=-1)
-    # logodds_for_output_ids = logodds[:, np.array(range(logodds.shape[1])), :]
+    if y is None:
+        logodds = np.max(logodds, axis=-1)
+    else:
+        logodds = logodds[:, np.array(range(logodds.shape[1])), np.repeat(y, logodds.shape[1])
+                          .reshape(logodds.shape[0], logodds.shape[1], 1)]
     return logodds

@@ -1,0 +1,7 @@
+final/data/
+final/__dcache__/
+final/__pycache__/
+__dcache__/
+__pycache__/
+data/
+.ipynb_checkpoints/
