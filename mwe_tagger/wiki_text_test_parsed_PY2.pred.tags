@@ -1,0 +1,999 @@
+1	=	=	VERB	O	0			
+2	Robert	robert	PROPN	B-PERSON	0		PERSON	
+3	Boulter	boulter	PROPN	Ī	2	_		
+4	=	=	VERB	O	0			
+
+1	Robert	robert	PROPN	B-PERSON	0		PERSON	
+2	Boulter	boulter	PROPN	Ī	1	_		
+3	is	be	AUX	O-stative	0		stative	
+4	an	an	DET	O	0			
+5	English	english	ADJ	O	0			
+6	film	film	NOUN	O-COMMUNICATION	0		COMMUNICATION	
+7	,	,	PUNCT	O	0			
+8	television	television	NOUN	O	0			
+9	and	and	CCONJ	O	0			
+10	theatre	theatre	NOUN	O	0			
+11	actor	actor	NOUN	O-PERSON	0		PERSON	
+12	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	had	have	VERB	O-stative	0		stative	
+3	a	a	DET	O	0			
+4	guest	guest	NOUN	O-PERSON	0		PERSON	
+5	@-@	@-@	PROPN	O	0			
+6	starring	star	VERB	O-stative	0		stative	
+7	role	role	NOUN	O	0			
+8	on	on	ADP	O	0			
+9	the	the	DET	O	0			
+10	television	television	NOUN	B-COGNITION	0		COGNITION	
+11	series	series	NOUN	Ī	10	_		
+12	The	the	DET	O	0			
+13	Bill	bill	PROPN	O	0			
+14	in	in	ADP	O	0			
+15	2000	2000	NUM	O	0			
+16	.	.	PUNCT	O	0			
+
+1	This	this	PRON	O	0			
+2	was	wa	AUX	O	0			
+3	followed	follow	VERB	O-motion	0		motion	
+4	by	by	ADP	O	0			
+5	a	a	DET	O	0			
+6	starring	star	VERB	O-stative	0		stative	
+7	role	role	NOUN	O	0			
+8	in	in	ADP	O	0			
+9	the	the	DET	O	0			
+10	play	play	NOUN	O-TIME	0		TIME	
+11	Herons	heron	NOUN	O-PERSON	0		PERSON	
+12	written	write	VERB	O-communication	0		communication	
+13	by	by	ADP	O	0			
+14	Simon	simon	PROPN	B-GROUP	0		GROUP	
+15	Stephens	stephen	PROPN	Ī	14	_		
+16	,	,	PUNCT	O	0			
+17	which	which	PRON	O	0			
+18	was	wa	AUX	O	0			
+19	performed	perform	VERB	O-social	0		social	
+20	in	in	ADP	O	0			
+21	2001	2001	NUM	O	0			
+22	at	at	ADP	O	0			
+23	the	the	DET	O	0			
+24	Royal	royal	PROPN	B-GROUP	0		GROUP	
+25	Court	court	PROPN	Ī	24	_		
+26	Theatre	theatre	PROPN	O	0			
+27	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	had	have	VERB	O-stative	0		stative	
+3	a	a	DET	O	0			
+4	guest	guest	ADJ	O	0			
+5	role	role	NOUN	O	0			
+6	in	in	ADP	O	0			
+7	the	the	DET	O	0			
+8	television	television	NOUN	O-ARTIFACT	0		ARTIFACT	
+9	series	series	NOUN	O-GROUP	0		GROUP	
+10	Judge	judge	PROPN	B-GROUP	0		GROUP	
+11	John	john	PROPN	Ī	10	_		
+12	Deed	deed	PROPN	Ī	11	_		
+13	in	in	ADP	O	0			
+14	2002	2002	NUM	O	0			
+15	.	.	PUNCT	O	0			
+
+1	In	in	ADP	O	0			
+2	2004	2004	NUM	O	0			
+3	Boulter	boulter	PROPN	O	0			
+4	landed	land	VERB	O-motion	0		motion	
+5	a	a	DET	O	0			
+6	role	role	NOUN	O	0			
+7	as	as	ADP	O	0			
+8	"	"	PUNCT	O	0			
+9	Craig	craig	PROPN	O	0			
+10	"	"	PUNCT	O	0			
+11	in	in	ADP	O	0			
+12	the	the	DET	O	0			
+13	episode	episode	NOUN	O	0			
+14	"	"	PUNCT	O	0			
+15	Teddy	teddy	PROPN	O	0			
+16	's	's	PART	O	0			
+17	Story	story	PROPN	O	0			
+18	"	"	PUNCT	O	0			
+19	of	of	ADP	O	0			
+20	the	the	DET	O	0			
+21	television	television	NOUN	B-COGNITION	0		COGNITION	
+22	series	series	NOUN	Ī	21	_		
+23	The	the	DET	O	0			
+24	Long	long	PROPN	O	0			
+25	Firm	firm	PROPN	O	0			
+26	;	;	PUNCT	O	0			
+27	he	he	PRON	O	0			
+28	starred	star	VERB	O-stative	0		stative	
+29	alongside	alongside	ADP	O	0			
+30	actors	actor	NOUN	O-PERSON	0		PERSON	
+31	Mark	mark	PROPN	O	0			
+32	Strong	strong	PROPN	O	0			
+33	and	and	CCONJ	O	0			
+34	Derek	derek	PROPN	B-PERSON	0		PERSON	
+35	Jacobi	jacobi	PROPN	Ī	34	_		
+36	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	was	wa	AUX	O	0			
+3	cast	cast	VERB	O-creation	0		creation	
+4	in	in	ADP	O	0			
+5	the	the	DET	O	0			
+6	2005	2005	NUM	O	0			
+7	theatre	theatre	NOUN	O	0			
+8	productions	production	NOUN	O-ACT	0		ACT	
+9	of	of	ADP	O	0			
+10	the	the	DET	O	0			
+11	Philip	philip	PROPN	B-GROUP	0		GROUP	
+12	Ridley	ridley	PROPN	o-LOCATION	0		LOCATION	
+13	play	play	VERB	o-GROUP	0		GROUP	
+14	Mercury	mercury	PROPN	Ī	11	_		
+15	Fur	fur	PROPN	O	0			
+16	,	,	PUNCT	O	0			
+17	which	which	PRON	O	0			
+18	was	wa	AUX	O	0			
+19	performed	perform	VERB	O-social	0		social	
+20	at	at	ADP	O	0			
+21	the	the	DET	B-GROUP	0		GROUP	
+22	Drum	drum	PROPN	Ī	21	_		
+23	Theatre	theatre	PROPN	O	0			
+24	in	in	ADP	O	0			
+25	Plymouth	plymouth	PROPN	O	0			
+26	and	and	CCONJ	O	0			
+27	the	the	DET	O	0			
+28	Menier	menier	PROPN	O	0			
+29	Chocolate	chocolate	PROPN	B-GROUP	0		GROUP	
+30	Factory	factory	PROPN	Ī	29	_		
+31	in	in	ADP	O	0			
+32	London	london	PROPN	O	0			
+33	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	was	wa	AUX	O	0			
+3	directed	direct	VERB	O-communication	0		communication	
+4	by	by	ADP	O	0			
+5	John	john	PROPN	O	0			
+6	Tiffany	tiffany	PROPN	O	0			
+7	and	and	CCONJ	O	0			
+8	starred	star	VERB	O-stative	0		stative	
+9	alongside	alongside	ADP	O	0			
+10	Ben	ben	PROPN	O	0			
+11	Whishaw	whishaw	PROPN	O	0			
+12	,	,	PUNCT	O	0			
+13	Shane	shane	PROPN	O	0			
+14	Zaza	zaza	PROPN	O	0			
+15	,	,	PUNCT	O	0			
+16	Harry	harry	PROPN	B-GROUP	0		GROUP	
+17	Kent	kent	PROPN	Ī	16	_		
+18	,	,	PUNCT	O	0			
+19	Fraser	fraser	PROPN	O	0			
+20	Ayres	ayres	PROPN	O	0			
+21	,	,	PUNCT	O	0			
+22	Sophie	sophie	PROPN	O	0			
+23	Stanton	stanton	PROPN	O	0			
+24	and	and	CCONJ	O	0			
+25	Dominic	dominic	PROPN	O-COGNITION	0		COGNITION	
+26	Hall	hall	PROPN	O	0			
+27	.	.	PUNCT	O	0			
+
+1	In	in	ADP	O	0			
+2	2006	2006	NUM	O	0			
+3	,	,	PUNCT	O	0			
+4	Boulter	boulter	PROPN	O	0			
+5	starred	star	VERB	O-stative	0		stative	
+6	alongside	alongside	ADP	O	0			
+7	Whishaw	whishaw	PROPN	O	0			
+8	in	in	ADP	O	0			
+9	the	the	DET	O	0			
+10	play	play	NOUN	O	0			
+11	Citizenship	citizenship	NOUN	B-GROUP	0		GROUP	
+12	written	write	VERB	Ī	11	_		
+13	by	by	ADP	O	0			
+14	Mark	mark	PROPN	O-PERSON	0		PERSON	
+15	Ravenhill	ravenhill	PROPN	O	0			
+16	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	appeared	appear	VERB	O-cognition	0		cognition	
+3	on	on	ADP	O	0			
+4	a	a	DET	O	0			
+5	2006	2006	NUM	O	0			
+6	episode	episode	NOUN	O	0			
+7	of	of	ADP	O	0			
+8	the	the	DET	O	0			
+9	television	television	NOUN	B-COGNITION	0		COGNITION	
+10	series	series	NOUN	Ī	9	_		
+11	,	,	PUNCT	O	0			
+12	Doctors	doctor	NOUN	O-PERSON	0		PERSON	
+13	,	,	PUNCT	O	0			
+14	followed	follow	VERB	O-motion	0		motion	
+15	by	by	ADP	O	0			
+16	a	a	DET	O	0			
+17	role	role	NOUN	O	0			
+18	in	in	ADP	O	0			
+19	the	the	DET	O	0			
+20	2007	2007	NUM	O	0			
+21	theatre	theatre	NOUN	O	0			
+22	production	production	NOUN	O-ACT	0		ACT	
+23	of	of	ADP	O	0			
+24	How	how	SCONJ	O	0			
+25	to	to	PART	O	0			
+26	Curse	curse	PROPN	O	0			
+27	directed	direct	VERB	O-cognition	0		cognition	
+28	by	by	ADP	O	0			
+29	Josie	josie	PROPN	O	0			
+30	Rourke	rourke	PROPN	O	0			
+31	.	.	PUNCT	O	0			
+
+1	How	how	SCONJ	O	0			
+2	to	to	ADP	O	0			
+3	Curse	curse	PROPN	O	0			
+4	was	wa	AUX	O	0			
+5	performed	perform	VERB	O-social	0		social	
+6	at	at	ADP	O	0			
+7	Bush	bush	PROPN	B-GROUP	0		GROUP	
+8	Theatre	theatre	PROPN	Ī	7	_		
+9	in	in	ADP	O	0			
+10	the	the	DET	O	0			
+11	London	london	PROPN	B-GROUP	0		GROUP	
+12	Borough	borough	PROPN	Ī	11	_		
+13	of	of	ADP	O	0			
+14	Hammersmith	hammersmith	PROPN	O	0			
+15	and	and	CCONJ	O	0			
+16	Fulham	fulham	PROPN	O	0			
+17	.	.	PUNCT	O	0			
+
+1	Boulter	boulter	PROPN	O	0			
+2	starred	star	VERB	O-stative	0		stative	
+3	in	in	ADP	O	0			
+4	two	two	NUM	O	0			
+5	films	film	NOUN	O-ARTIFACT	0		ARTIFACT	
+6	in	in	ADP	O	0			
+7	2008	2008	NUM	O	0			
+8	,	,	PUNCT	O	0			
+9	Daylight	daylight	PROPN	B-COGNITION	0		COGNITION	
+10	Robbery	robbery	PROPN	Ī	9	_		
+11	by	by	ADP	O	0			
+12	filmmaker	filmmaker	NOUN	O-PERSON	0		PERSON	
+13	Paris	paris	PROPN	O	0			
+14	Leonti	leonti	PROPN	O	0			
+15	,	,	PUNCT	O	0			
+16	and	and	CCONJ	O	0			
+17	Donkey	donkey	PROPN	B-COGNITION	0		COGNITION	
+18	Punch	punch	PROPN	Ī	17	_		
+19	directed	direct	VERB	O-cognition	0		cognition	
+20	by	by	ADP	O	0			
+21	Olly	olly	PROPN	B-GROUP	0		GROUP	
+22	Blackburn	blackburn	PROPN	Ī	21	_		
+23	.	.	PUNCT	O	0			
+
+1	In	in	ADP	O	0			
+2	May	may	PROPN	O	0			
+3	2008	2008	NUM	O	0			
+4	,	,	PUNCT	O	0			
+5	Boulter	boulter	PROPN	O	0			
+6	made	make	VERB	O-creation	0		creation	
+7	a	a	DET	O	0			
+8	guest	guest	ADJ	O	0			
+9	appearance	appearance	NOUN	O-ATTRIBUTE	0		ATTRIBUTE	
+10	on	on	ADP	O	0			
+11	a	a	DET	O	0			
+12	two	two	NUM	O	0			
+13	@-@	@-@	PROPN	O	0			
+14	part	part	NOUN	O	0			
+15	episode	episode	NOUN	O	0			
+16	arc	arc	NOUN	O	0			
+17	of	of	ADP	O	0			
+18	the	the	DET	O	0			
+19	television	television	NOUN	B-COGNITION	0		COGNITION	
+20	series	series	NOUN	Ī	19	_		
+21	Waking	wake	VERB	O-body	0		body	
+22	the	the	DET	O	0			
+23	Dead	dead	PROPN	O	0			
+24	,	,	PUNCT	O	0			
+25	followed	follow	VERB	B-cognition	0		cognition	
+26	by	by	ADP	Ī	25	_		
+27	an	an	DET	O	0			
+28	appearance	appearance	NOUN	O	0			
+29	on	on	ADP	O	0			
+30	the	the	DET	O	0			
+31	television	television	NOUN	B-COGNITION	0		COGNITION	
+32	series	series	NOUN	Ī	31	_		
+33	Survivors	survivor	PROPN	Ī	32	_		
+34	in	in	ADP	O	0			
+35	November	november	PROPN	O	0			
+36	2008	2008	NUM	O	0			
+37	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	had	have	VERB	O-stative	0		stative	
+3	a	a	DET	O	0			
+4	recurring	recur	VERB	O-change	0		change	
+5	role	role	NOUN	O-COGNITION	0		COGNITION	
+6	in	in	ADP	O	0			
+7	ten	ten	NUM	O	0			
+8	episodes	episode	NOUN	O-COMMUNICATION	0		COMMUNICATION	
+9	of	of	ADP	O	0			
+10	the	the	DET	O	0			
+11	television	television	NOUN	B-COGNITION	0		COGNITION	
+12	series	series	NOUN	Ī	11	_		
+13	Casualty	casualty	PROPN	Ī	12	_		
+14	in	in	ADP	O	0			
+15	2010	2010	NUM	O	0			
+16	,	,	PUNCT	O	0			
+17	as	as	ADP	O	0			
+18	"	"	PUNCT	O	0			
+19	Kieron	kieron	PROPN	B-GROUP	0		GROUP	
+20	Fletcher	fletcher	PROPN	Ī	19	_		
+21	"	"	PUNCT	O	0			
+22	.	.	PUNCT	O	0			
+
+1	Boulter	boulter	PROPN	O	0			
+2	starred	star	VERB	O-stative	0		stative	
+3	in	in	ADP	O	0			
+4	the	the	DET	O	0			
+5	2011	2011	NUM	O	0			
+6	film	film	NOUN	O-COMMUNICATION	0		COMMUNICATION	
+7	Mercenaries	mercenary	PROPN	O	0			
+8	directed	direct	VERB	O-communication	0		communication	
+9	by	by	ADP	O	0			
+10	Paris	paris	PROPN	O-TIME	0		TIME	
+11	Leonti	leonti	PROPN	O	0			
+12	.	.	PUNCT	O	0			
+
+1	=	=	X	O	0			
+2	=	=	NOUN	O	0			
+3	Career	career	NOUN	O-ACT	0		ACT	
+4	=	=	PUNCT	O	0			
+5	=	=	VERB	O	0			
+
+1	=	=	X	O	0			
+2	=	=	NOUN	O	0			
+3	=	=	NOUN	O	0			
+4	2000	2000	NUM	O	0			
+5	–	–	PUNCT	O	0			
+6	2005	2005	NUM	O	0			
+7	=	=	SYM	O	0			
+8	=	=	NOUN	O	0			
+9	=	=	X	O	0			
+
+1	In	in	ADP	O	0			
+2	2000	2000	NUM	O	0			
+3	Boulter	boulter	PROPN	O	0			
+4	had	have	VERB	O-stative	0		stative	
+5	a	a	DET	O	0			
+6	guest	guest	NOUN	O-PERSON	0		PERSON	
+7	@-@	@-@	PROPN	O	0			
+8	starring	star	VERB	O-stative	0		stative	
+9	role	role	NOUN	O	0			
+10	on	on	ADP	O	0			
+11	the	the	DET	O	0			
+12	television	television	NOUN	B-COGNITION	0		COGNITION	
+13	series	series	NOUN	Ī	12	_		
+14	The	the	DET	O	0			
+15	Bill	bill	PROPN	O	0			
+16	;	;	PUNCT	O	0			
+17	he	he	PRON	O	0			
+18	portrayed	portray	VERB	O-communication	0		communication	
+19	"	"	PUNCT	O	0			
+20	Scott	scott	PROPN	B-PERSON	0		PERSON	
+21	Parry	parry	PROPN	Ī	20	_		
+22	"	"	PUNCT	O	0			
+23	in	in	ADP	O	0			
+24	the	the	DET	O	0			
+25	episode	episode	NOUN	O	0			
+26	,	,	PUNCT	O	0			
+27	"	"	PUNCT	O	0			
+28	In	in	ADP	B	0			
+29	Safe	safe	PROPN	Ī	28	_		
+30	Hands	hands	PROPN	Ī	29	_		
+31	"	"	PUNCT	O	0			
+32	.	.	PUNCT	O	0			
+
+1	Boulter	boulter	PROPN	O	0			
+2	starred	star	VERB	O-stative	0		stative	
+3	as	as	ADP	O	0			
+4	"	"	PUNCT	O	0			
+5	Scott	scott	PROPN	O	0			
+6	"	"	PUNCT	O	0			
+7	in	in	ADP	O	0			
+8	the	the	DET	O	0			
+9	play	play	NOUN	O	0			
+10	Herons	heron	NOUN	O-PERSON	0		PERSON	
+11	written	write	VERB	O-communication	0		communication	
+12	by	by	ADP	O	0			
+13	Simon	simon	PROPN	B-GROUP	0		GROUP	
+14	Stephens	stephen	PROPN	Ī	13	_		
+15	,	,	PUNCT	O	0			
+16	which	which	PRON	O	0			
+17	was	wa	AUX	O	0			
+18	performed	perform	VERB	O-social	0		social	
+19	in	in	ADP	O	0			
+20	2001	2001	NUM	O	0			
+21	at	at	ADP	O	0			
+22	the	the	DET	O	0			
+23	Royal	royal	PROPN	B-GROUP	0		GROUP	
+24	Court	court	PROPN	Ī	23	_		
+25	Theatre	theatre	PROPN	O	0			
+26	.	.	PUNCT	O	0			
+
+1	A	a	DET	O	0			
+2	review	review	NOUN	O-COMMUNICATION	0		COMMUNICATION	
+3	of	of	ADP	O	0			
+4	Boulter	boulter	PROPN	B-GROUP	0		GROUP	
+5	's	's	PART	Ī	4	_		
+6	performance	performance	NOUN	O	0			
+7	in	in	ADP	O	0			
+8	The	the	DET	O	0			
+9	Independent	independent	PROPN	B-GROUP	0		GROUP	
+10	on	on	ADP	Ī	9	_		
+11	Sunday	sunday	PROPN	O-TIME	0		TIME	
+12	described	describe	VERB	O-communication	0		communication	
+13	him	him	PRON	O	0			
+14	as	as	ADP	O	0			
+15	"	"	PUNCT	O	0			
+16	horribly	horribly	ADV	O	0			
+17	menacing	menace	ADJ	O	0			
+18	"	"	PUNCT	O	0			
+19	in	in	ADP	O	0			
+20	the	the	DET	O	0			
+21	role	role	NOUN	O-COGNITION	0		COGNITION	
+22	,	,	PUNCT	O	0			
+23	and	and	CCONJ	O	0			
+24	he	he	PRON	O	0			
+25	received	receive	VERB	O-possession	0		possession	
+26	critical	critical	ADJ	O	0			
+27	reviews	review	NOUN	O-COMMUNICATION	0		COMMUNICATION	
+28	in	in	ADP	O	0			
+29	The	the	DET	O	0			
+30	Herald	herald	PROPN	O-social	0		social	
+31	,	,	PUNCT	O	0			
+32	and	and	CCONJ	O	0			
+33	Evening	evening	PROPN	O	0			
+34	Standard	standard	PROPN	O	0			
+35	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	appeared	appear	VERB	O-social	0		social	
+3	in	in	ADP	O	0			
+4	the	the	DET	O	0			
+5	television	television	NOUN	O-ARTIFACT	0		ARTIFACT	
+6	series	series	NOUN	O-GROUP	0		GROUP	
+7	Judge	judge	PROPN	B-GROUP	0		GROUP	
+8	John	john	PROPN	Ī	7	_		
+9	Deed	deed	PROPN	Ī	8	_		
+10	in	in	ADP	O	0			
+11	2002	2002	NUM	O	0			
+12	as	as	ADP	O	0			
+13	"	"	PUNCT	O	0			
+14	Addem	addem	PROPN	O	0			
+15	Armitage	armitage	PROPN	O	0			
+16	"	"	PUNCT	O	0			
+17	in	in	ADP	O	0			
+18	the	the	DET	O	0			
+19	episode	episode	NOUN	O	0			
+20	"	"	PUNCT	O	0			
+21	Political	political	PROPN	B	0			
+22	Expediency	expediency	PROPN	Ī	21	_		
+23	"	"	PUNCT	O	0			
+24	,	,	PUNCT	O	0			
+25	and	and	CCONJ	O	0			
+26	had	have	VERB	O-stative	0		stative	
+27	a	a	DET	O	0			
+28	role	role	NOUN	O-COGNITION	0		COGNITION	
+29	as	as	ADP	O	0			
+30	a	a	DET	O	0			
+31	different	different	ADJ	O	0			
+32	character	character	NOUN	O-PERSON	0		PERSON	
+33	"	"	PUNCT	O	0			
+34	Toby	toby	PROPN	B-GROUP	0		GROUP	
+35	Steele	steele	PROPN	Ī	34	_		
+36	"	"	PUNCT	O	0			
+37	on	on	ADP	O	0			
+38	The	the	DET	B-GROUP	0		GROUP	
+39	Bill	bill	PROPN	Ī	38	_		
+40	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	had	have	VERB	O-stative	0		stative	
+3	a	a	DET	O	0			
+4	recurring	recur	VERB	B-communication	0		communication	
+5	role	role	NOUN	Ī	4	_		
+6	in	in	ADP	O	0			
+7	2003	2003	NUM	O	0			
+8	on	on	ADP	O	0			
+9	two	two	NUM	B	0			
+10	episodes	episode	NOUN	Ī	9	_		
+11	of	of	ADP	O	0			
+12	The	the	DET	O	0			
+13	Bill	bill	PROPN	O	0			
+14	,	,	PUNCT	O	0			
+15	as	as	ADP	O	0			
+16	character	character	NOUN	O-PERSON	0		PERSON	
+17	"	"	PUNCT	O	0			
+18	Connor	connor	PROPN	B-GROUP	0		GROUP	
+19	Price	price	PROPN	Ī	18	_		
+20	"	"	PUNCT	O	0			
+21	.	.	PUNCT	O	0			
+
+1	In	in	ADP	O	0			
+2	2004	2004	NUM	O	0			
+3	Boulter	boulter	PROPN	O	0			
+4	landed	land	VERB	O-motion	0		motion	
+5	a	a	DET	O	0			
+6	role	role	NOUN	O	0			
+7	as	as	ADP	O	0			
+8	"	"	PUNCT	O	0			
+9	Craig	craig	PROPN	O	0			
+10	"	"	PUNCT	O	0			
+11	in	in	ADP	O	0			
+12	the	the	DET	O	0			
+13	episode	episode	NOUN	O	0			
+14	"	"	PUNCT	O	0			
+15	Teddy	teddy	PROPN	O	0			
+16	's	's	PART	O	0			
+17	Story	story	PROPN	O	0			
+18	"	"	PUNCT	O	0			
+19	of	of	ADP	O	0			
+20	the	the	DET	O	0			
+21	television	television	NOUN	B-COGNITION	0		COGNITION	
+22	series	series	NOUN	Ī	21	_		
+23	The	the	DET	O	0			
+24	Long	long	PROPN	O	0			
+25	Firm	firm	PROPN	O	0			
+26	;	;	PUNCT	O	0			
+27	he	he	PRON	O	0			
+28	starred	star	VERB	O-stative	0		stative	
+29	alongside	alongside	ADP	O	0			
+30	actors	actor	NOUN	O-PERSON	0		PERSON	
+31	Mark	mark	PROPN	O	0			
+32	Strong	strong	PROPN	O	0			
+33	and	and	CCONJ	O	0			
+34	Derek	derek	PROPN	B-PERSON	0		PERSON	
+35	Jacobi	jacobi	PROPN	Ī	34	_		
+36	.	.	PUNCT	O	0			
+
+1	Boulter	boulter	PROPN	O	0			
+2	starred	star	VERB	O-stative	0		stative	
+3	as	as	ADP	O	0			
+4	"	"	PUNCT	O	0			
+5	Darren	darren	PROPN	O	0			
+6	"	"	PUNCT	O	0			
+7	,	,	PUNCT	O	0			
+8	in	in	ADP	O	0			
+9	the	the	DET	O	0			
+10	2005	2005	NUM	O	0			
+11	theatre	theatre	NOUN	O	0			
+12	productions	production	NOUN	O-ACT	0		ACT	
+13	of	of	ADP	O	0			
+14	the	the	DET	O	0			
+15	Philip	philip	PROPN	B-GROUP	0		GROUP	
+16	Ridley	ridley	PROPN	o-LOCATION	0		LOCATION	
+17	play	play	VERB	o-GROUP	0		GROUP	
+18	Mercury	mercury	PROPN	Ī	15	_		
+19	Fur	fur	PROPN	O	0			
+20	.	.	PUNCT	O	0			
+
+1	It	it	PRON	O	0			
+2	was	wa	AUX	O-stative	0		stative	
+3	performed	perform	VERB	O	0			
+4	at	at	ADP	O	0			
+5	the	the	DET	B-GROUP	0		GROUP	
+6	Drum	drum	PROPN	Ī	5	_		
+7	Theatre	theatre	PROPN	O	0			
+8	in	in	ADP	O	0			
+9	Plymouth	plymouth	PROPN	O-LOCATION	0		LOCATION	
+10	,	,	PUNCT	O	0			
+11	and	and	CCONJ	O	0			
+12	the	the	DET	O	0			
+13	Menier	menier	PROPN	O	0			
+14	Chocolate	chocolate	PROPN	B-GROUP	0		GROUP	
+15	Factory	factory	PROPN	Ī	14	_		
+16	in	in	ADP	O	0			
+17	London	london	PROPN	O	0			
+18	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	was	wa	AUX	O	0			
+3	directed	direct	VERB	O-communication	0		communication	
+4	by	by	ADP	O	0			
+5	John	john	PROPN	O	0			
+6	Tiffany	tiffany	PROPN	O	0			
+7	and	and	CCONJ	O	0			
+8	starred	star	VERB	O-stative	0		stative	
+9	alongside	alongside	ADP	O	0			
+10	Ben	ben	PROPN	O	0			
+11	Whishaw	whishaw	PROPN	O	0			
+12	,	,	PUNCT	O	0			
+13	Shane	shane	PROPN	O	0			
+14	Zaza	zaza	PROPN	O	0			
+15	,	,	PUNCT	O	0			
+16	Harry	harry	PROPN	B-GROUP	0		GROUP	
+17	Kent	kent	PROPN	Ī	16	_		
+18	,	,	PUNCT	O	0			
+19	Fraser	fraser	PROPN	O	0			
+20	Ayres	ayres	PROPN	O	0			
+21	,	,	PUNCT	O	0			
+22	Sophie	sophie	PROPN	O	0			
+23	Stanton	stanton	PROPN	O	0			
+24	and	and	CCONJ	O	0			
+25	Dominic	dominic	PROPN	O-COGNITION	0		COGNITION	
+26	Hall	hall	PROPN	O	0			
+27	.	.	PUNCT	O	0			
+
+1	Boulter	boulter	PROPN	O	0			
+2	received	receive	VERB	O-possession	0		possession	
+3	a	a	DET	O	0			
+4	favorable	favorable	ADJ	O	0			
+5	review	review	NOUN	O-COMMUNICATION	0		COMMUNICATION	
+6	in	in	ADP	O	0			
+7	The	the	DET	O	0			
+8	Daily	daily	PROPN	O	0			
+9	Telegraph	telegraph	PROPN	O	0			
+10	:	:	PUNCT	O	0			
+11	"	"	PUNCT	O	0			
+12	The	the	DET	O	0			
+13	acting	acting	NOUN	O-ACT	0		ACT	
+14	is	be	AUX	O-stative	0		stative	
+15	shatteringly	shatteringly	ADV	O	0			
+16	intense	intense	ADJ	O	0			
+17	,	,	PUNCT	O	0			
+18	with	with	ADP	O	0			
+19	wired	wire	VERB	O-possession	0		possession	
+20	performances	performance	NOUN	O-COMMUNICATION	0		COMMUNICATION	
+21	from	from	ADP	O	0			
+22	Ben	ben	PROPN	B-GROUP	0		GROUP	
+23	Whishaw	whishaw	PROPN	Ī	22	_		
+24	(	(	PUNCT	O	0			
+25	now	now	ADV	O	0			
+26	unrecognisable	unrecognisable	ADJ	O	0			
+27	from	from	ADP	O	0			
+28	his	his	PRON	O	0			
+29	performance	performance	NOUN	O	0			
+30	as	as	ADP	O	0			
+31	Trevor	trevor	PROPN	O	0			
+32	Nunn	nunn	PROPN	O	0			
+33	's	's	PART	O	0			
+34	Hamlet	hamlet	PROPN	O	0			
+35	)	)	PUNCT	O	0			
+36	,	,	PUNCT	O	0			
+37	Robert	robert	PROPN	B-PERSON	0		PERSON	
+38	Boulter	boulter	PROPN	Ī	37	_		
+39	,	,	PUNCT	O	0			
+40	Shane	shane	PROPN	O	0			
+41	Zaza	zaza	PROPN	O	0			
+42	and	and	CCONJ	O	0			
+43	Fraser	fraser	PROPN	O	0			
+44	Ayres	ayres	PROPN	O	0			
+45	.	.	PUNCT	O	0			
+46	"	"	PUNCT	O	0			
+
+1	The	the	DET	O	0			
+2	Guardian	guardian	PROPN	O	0			
+3	noted	note	VERB	O-communication	0		communication	
+4	,	,	PUNCT	O	0			
+5	"	"	PUNCT	O	0			
+6	Ben	ben	PROPN	B-GROUP	0		GROUP	
+7	Whishaw	whishaw	PROPN	Ī	6	_		
+8	and	and	CCONJ	O	0			
+9	Robert	robert	PROPN	B-PERSON	0		PERSON	
+10	Boulter	boulter	PROPN	Ī	9	_		
+11	offer	offer	VERB	O-possession	0		possession	
+12	tenderness	tenderness	NOUN	O	0			
+13	amid	amid	ADP	O	0			
+14	the	the	DET	O	0			
+15	savagery	savagery	NOUN	O	0			
+16	.	.	PUNCT	O	0			
+17	"	"	PUNCT	O	0			
+
+1	=	=	X	O	0			
+2	=	=	NOUN	O	0			
+3	=	=	X	O	0			
+4	2006	2006	NUM	O	0			
+5	–	–	PUNCT	O	0			
+6	present	present	ADJ	O	0			
+7	=	=	NOUN	O	0			
+8	=	=	NOUN	O	0			
+9	=	=	X	O	0			
+
+1	In	in	ADP	O	0			
+2	2006	2006	NUM	O	0			
+3	Boulter	boulter	PROPN	O	0			
+4	starred	star	VERB	O-stative	0		stative	
+5	in	in	ADP	O	0			
+6	the	the	DET	O	0			
+7	play	play	NOUN	O	0			
+8	Citizenship	citizenship	NOUN	B-GROUP	0		GROUP	
+9	written	write	VERB	Ī	8	_		
+10	by	by	ADP	O	0			
+11	Mark	mark	PROPN	O-PERSON	0		PERSON	
+12	Ravenhill	ravenhill	PROPN	O	0			
+13	.	.	PUNCT	O	0			
+
+1	The	the	DET	O	0			
+2	play	play	NOUN	B	0			
+3	was	wa	AUX	o-EVENT	0		EVENT	
+4	part	part	NOUN	Ī	2	_		
+5	of	of	ADP	Ī	4	_		
+6	a	a	DET	O	0			
+7	series	series	NOUN	O-COGNITION	0		COGNITION	
+8	which	which	PRON	O	0			
+9	featured	feature	VERB	O-stative	0		stative	
+10	different	different	ADJ	O	0			
+11	playwrights	playwright	NOUN	O-GROUP	0		GROUP	
+12	,	,	PUNCT	O	0			
+13	titled	title	VERB	B-communication	0		communication	
+14	Burn	burn	PROPN	Ī	13	_		
+15	/	/	SYM	O	0			
+16	Chatroom	chatroom	PROPN	O	0			
+17	/	/	SYM	O	0			
+18	Citizenship	citizenship	PROPN	O	0			
+19	.	.	PUNCT	O	0			
+
+1	In	in	ADP	O	0			
+2	a	a	DET	O	0			
+3	2006	2006	NUM	O	0			
+4	interview	interview	NOUN	O-COMMUNICATION	0		COMMUNICATION	
+5	,	,	PUNCT	O	0			
+6	fellow	fellow	ADJ	O	0			
+7	actor	actor	NOUN	O	0			
+8	Ben	ben	PROPN	B-GROUP	0		GROUP	
+9	Whishaw	whishaw	PROPN	Ī	8	_		
+10	identified	identify	VERB	O-cognition	0		cognition	
+11	Boulter	boulter	PROPN	O	0			
+12	as	as	SCONJ	O	0			
+13	one	one	NUM	O	0			
+14	of	of	ADP	O	0			
+15	his	his	PRON	O	0			
+16	favorite	favorite	ADJ	O	0			
+17	co	co	NOUN	O	0			
+18	@-@	@-@	PROPN	O	0			
+19	stars	star	VERB	O-stative	0		stative	
+20	:	:	PUNCT	O	0			
+21	"	"	PUNCT	O	0			
+22	I	i	PRON	O	0			
+23	loved	love	VERB	O-emotion	0		emotion	
+24	working	work	VERB	O-social	0		social	
+25	with	with	ADP	O	0			
+26	a	a	DET	O	0			
+27	guy	guy	NOUN	O-PERSON	0		PERSON	
+28	called	call	VERB	O-communication	0		communication	
+29	Robert	robert	PROPN	B-PERSON	0		PERSON	
+30	Boulter	boulter	PROPN	Ī	29	_		
+31	,	,	PUNCT	O	0			
+32	who	who	PRON	O	0			
+33	was	wa	AUX	O-stative	0		stative	
+34	in	in	ADP	O	0			
+35	the	the	DET	O	0			
+36	triple	triple	ADJ	O	0			
+37	bill	bill	NOUN	B-ARTIFACT	0		ARTIFACT	
+38	of	of	ADP	Ī	37	_		
+39	Burn	burn	PROPN	Ī	38	_		
+40	,	,	PUNCT	O	0			
+41	Chatroom	chatroom	PROPN	O	0			
+42	and	and	CCONJ	O	0			
+43	Citizenship	citizenship	PROPN	O	0			
+44	at	at	ADP	O	0			
+45	the	the	DET	O	0			
+46	National	national	PROPN	O	0			
+47	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	played	play	VERB	O-social	0		social	
+3	my	my	PRON	O	0			
+4	brother	brother	NOUN	O-PERSON	0		PERSON	
+5	in	in	ADP	O	0			
+6	Mercury	mercury	PROPN	O	0			
+7	Fur	fur	PROPN	O	0			
+8	.	.	PUNCT	O	0			
+9	"	"	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	portrayed	portray	VERB	O-communication	0		communication	
+3	"	"	PUNCT	O	0			
+4	Jason	jason	PROPN	B-GROUP	0		GROUP	
+5	Tyler	tyler	PROPN	Ī	4	_		
+6	"	"	PUNCT	O	0			
+7	on	on	ADP	O	0			
+8	the	the	DET	O	0			
+9	2006	2006	NUM	O	0			
+10	episode	episode	NOUN	O	0			
+11	of	of	ADP	O	0			
+12	the	the	DET	O	0			
+13	television	television	NOUN	B-COGNITION	0		COGNITION	
+14	series	series	NOUN	Ī	13	_		
+15	,	,	PUNCT	O	0			
+16	Doctors	doctor	NOUN	O-PERSON	0		PERSON	
+17	,	,	PUNCT	O	0			
+18	titled	title	VERB	O-communication	0		communication	
+19	"	"	PUNCT	O	0			
+20	Something	something	PRON	O	0			
+21	I	i	PRON	O	0			
+22	Ate	eat	VERB	O-consumption	0		consumption	
+23	"	"	PUNCT	O	0			
+24	.	.	PUNCT	O	0			
+
+1	Boulter	boulter	PROPN	O	0			
+2	starred	star	VERB	O-stative	0		stative	
+3	as	as	ADP	O	0			
+4	"	"	PUNCT	O	0			
+5	William	william	PROPN	O	0			
+6	"	"	PUNCT	O	0			
+7	in	in	ADP	O	0			
+8	the	the	DET	O	0			
+9	2007	2007	NUM	O	0			
+10	production	production	NOUN	O-ACT	0		ACT	
+11	of	of	ADP	O	0			
+12	How	how	SCONJ	O	0			
+13	to	to	PART	O	0			
+14	Curse	curse	PROPN	O	0			
+15	directed	direct	VERB	O-cognition	0		cognition	
+16	by	by	ADP	O	0			
+17	Josie	josie	PROPN	O	0			
+18	Rourke	rourke	PROPN	O	0			
+19	.	.	PUNCT	O	0			
+
+1	How	how	SCONJ	O	0			
+2	to	to	ADP	O	0			
+3	Curse	curse	PROPN	O	0			
+4	was	wa	AUX	O	0			
+5	performed	perform	VERB	O-social	0		social	
+6	at	at	ADP	O	0			
+7	Bush	bush	PROPN	B-GROUP	0		GROUP	
+8	Theatre	theatre	PROPN	Ī	7	_		
+9	in	in	ADP	O	0			
+10	the	the	DET	O	0			
+11	London	london	PROPN	B-GROUP	0		GROUP	
+12	Borough	borough	PROPN	Ī	11	_		
+13	of	of	ADP	O	0			
+14	Hammersmith	hammersmith	PROPN	O	0			
+15	and	and	CCONJ	O	0			
+16	Fulham	fulham	PROPN	O	0			
+17	.	.	PUNCT	O	0			
+
+1	In	in	ADP	O	0			
+2	a	a	DET	O	0			
+3	review	review	NOUN	O-COMMUNICATION	0		COMMUNICATION	
+4	of	of	ADP	O	0			
+5	the	the	DET	O	0			
+6	production	production	NOUN	O-ARTIFACT	0		ARTIFACT	
+7	for	for	ADP	O	0			
+8	The	the	DET	O	0			
+9	Daily	daily	PROPN	O	0			
+10	Telegraph	telegraph	PROPN	O	0			
+11	,	,	PUNCT	O	0			
+12	theatre	theatre	NOUN	O	0			
+13	critic	critic	NOUN	O	0			
+14	Charles	charles	PROPN	B-PERSON	0		PERSON	
+15	Spencer	spencer	PROPN	Ī	14	_		
+16	noted	note	VERB	O-communication	0		communication	
+17	,	,	PUNCT	O	0			
+18	"	"	PUNCT	O	0			
+19	Robert	robert	PROPN	B-PERSON	0		PERSON	
+20	Boulter	boulter	PROPN	Ī	19	_		
+21	brings	bring	VERB	O-motion	0		motion	
+22	a	a	DET	O	0			
+23	touching	touching	ADJ	O	0			
+24	vulnerability	vulnerability	NOUN	O	0			
+25	to	to	ADP	O	0			
+26	the	the	DET	O	0			
+27	stage	stage	NOUN	O	0			
+28	as	as	ADP	O	0			
+29	William	william	PROPN	O	0			
+30	.	.	PUNCT	O	0			
+31	"	"	PUNCT	O	0			
+
+1	Boulter	boulter	PROPN	O	0			
+2	starred	star	VERB	O-stative	0		stative	
+3	in	in	ADP	O	0			
+4	two	two	NUM	O	0			
+5	films	film	NOUN	O-ARTIFACT	0		ARTIFACT	
+6	in	in	ADP	O	0			
+7	2008	2008	NUM	O	0			
+8	,	,	PUNCT	O	0			
+9	Daylight	daylight	PROPN	B-COGNITION	0		COGNITION	
+10	Robbery	robbery	PROPN	Ī	9	_		
+11	by	by	ADP	O	0			
+12	filmmaker	filmmaker	NOUN	O-PERSON	0		PERSON	
+13	Paris	paris	PROPN	O	0			
+14	Leonti	leonti	PROPN	O	0			
+15	,	,	PUNCT	O	0			
+16	and	and	CCONJ	O	0			
+17	Donkey	donkey	PROPN	B-COGNITION	0		COGNITION	
+18	Punch	punch	PROPN	Ī	17	_		
+19	directed	direct	VERB	O-cognition	0		cognition	
+20	by	by	ADP	O	0			
+21	Olly	olly	PROPN	B-GROUP	0		GROUP	
+22	Blackburn	blackburn	PROPN	Ī	21	_		
+23	.	.	PUNCT	O	0			
+
+1	Boulter	boulter	PROPN	O	0			
+2	portrayed	portray	VERB	O-communication	0		communication	
+3	a	a	DET	O	0			
+4	character	character	NOUN	O-PERSON	0		PERSON	
+5	named	name	VERB	O-communication	0		communication	
+6	"	"	PUNCT	O	0			
+7	Sean	sean	PROPN	O	0			
+8	"	"	PUNCT	O	0			
+9	in	in	ADP	O	0			
+10	Donkey	donkey	PROPN	B-LOCATION	0		LOCATION	
+11	Punch	punch	PROPN	Ī	10	_		
+12	,	,	PUNCT	O	0			
+13	who	who	PRON	O	0			
+14	tags	tag	VERB	B-social	0		social	
+15	along	along	ADP	Ī	14	_		
+16	with	with	ADP	Ī	15	_		
+17	character	character	NOUN	O-PERSON	0		PERSON	
+18	"	"	PUNCT	O	0			
+19	Josh	josh	PROPN	O-PERSON	0		PERSON	
+20	"	"	PUNCT	O	0			
+21	as	as	ADP	O	0			
+22	the	the	DET	O	0			
+23	"	"	PUNCT	O	0			
+24	quiet	quiet	ADJ	O	0			
+25	brother	brother	NOUN	O-PERSON	0		PERSON	
+26	...	...	PUNCT	O	0			
+27	who	who	PRON	O	0			
+28	hits	hit	VERB	B	0			
+29	it	it	PRON	Ī	28	_		
+30	off	off	ADP	Ī	29	_		
+31	with	with	ADP	Ī	30	_		
+32	Tammi	tammi	PROPN	O	0			
+33	"	"	PUNCT	O	0			
+34	.	.	PUNCT	O	0			
+
+1	Boulter	boulter	PROPN	O	0			
+2	guest	guest	NOUN	B	0			
+3	starred	star	VERB	Ī	2	_		
+4	on	on	ADP	O	0			
+5	a	a	DET	O	0			
+6	two	two	NUM	O	0			
+7	@-@	@-@	PROPN	O	0			
+8	part	part	NOUN	B	0			
+9	episode	episode	NOUN	Ī	8	_		
+10	arc	arc	PROPN	Ī	9	_		
+11	"	"	PUNCT	O	0			
+12	Wounds	wound	PROPN	O-competition	0		competition	
+13	"	"	PUNCT	O	0			
+14	in	in	ADP	O	0			
+15	May	may	PROPN	O	0			
+16	2008	2008	NUM	O	0			
+17	of	of	ADP	O	0			
+18	the	the	DET	O	0			
+19	television	television	NOUN	B-COGNITION	0		COGNITION	
+20	series	series	NOUN	Ī	19	_		
+21	Waking	wake	VERB	O-social	0		social	
+22	the	the	DET	O	0			
+23	Dead	dead	PROPN	O	0			
+24	as	as	ADP	O	0			
+25	character	character	NOUN	O-PERSON	0		PERSON	
+26	"	"	PUNCT	O	0			
+27	Jimmy	jimmy	PROPN	B-GROUP	0		GROUP	
+28	Dearden	dearden	PROPN	Ī	27	_		
+29	"	"	PUNCT	O	0			
+30	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	appeared	appear	VERB	O-cognition	0		cognition	
+3	on	on	ADP	O	0			
+4	the	the	DET	O	0			
+5	television	television	NOUN	B-COGNITION	0		COGNITION	
+6	series	series	NOUN	Ī	5	_		
+7	Survivors	survivor	PROPN	Ī	6	_		
+8	as	as	ADP	O	0			
+9	"	"	PUNCT	O	0			
+10	Neil	neil	PROPN	O	0			
+11	"	"	PUNCT	O	0			
+12	in	in	ADP	O	0			
+13	November	november	PROPN	O	0			
+14	2008	2008	NUM	O	0			
+15	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	had	have	VERB	O-stative	0		stative	
+3	a	a	DET	O	0			
+4	recurring	recur	VERB	O-change	0		change	
+5	role	role	NOUN	O-COGNITION	0		COGNITION	
+6	in	in	ADP	O	0			
+7	ten	ten	NUM	O	0			
+8	episodes	episode	NOUN	O-COMMUNICATION	0		COMMUNICATION	

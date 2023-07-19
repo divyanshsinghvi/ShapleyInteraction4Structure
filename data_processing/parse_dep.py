@@ -17,6 +17,17 @@ def get_spacy_pipeline():
 
     return nlp
 
+def parse_sentences_mwe(dataset):
+    lines = []
+    for d in dataset:
+        doc = nlp(d)
+        if doc:
+            for sent in doc.sents:
+                for word in sent:
+                    lines.append(f"{word}\t{word.pos_}\n")
+                lines.append("\n")
+    return lines
+
 def parse_dependencies(pipeline, text:str) -> dict:
     """
     Use spaCy dependency parser on the text.
