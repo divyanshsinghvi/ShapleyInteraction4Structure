@@ -1,0 +1,34 @@
+1	=	=	VERB	O	0			
+2	Robert	robert	PROPN	B-PERSON	0		PERSON	
+3	Boulter	boulter	PROPN	Ī	2	_		
+4	=	=	VERB	O	0			
+
+1	Robert	robert	PROPN	B-PERSON	0		PERSON	
+2	Boulter	boulter	PROPN	Ī	1	_		
+3	is	be	AUX	O-stative	0		stative	
+4	an	an	DET	O	0			
+5	English	english	ADJ	O	0			
+6	film	film	NOUN	O-COMMUNICATION	0		COMMUNICATION	
+7	,	,	PUNCT	O	0			
+8	television	television	NOUN	O	0			
+9	and	and	CCONJ	O	0			
+10	theatre	theatre	NOUN	O	0			
+11	actor	actor	NOUN	O-PERSON	0		PERSON	
+12	.	.	PUNCT	O	0			
+
+1	He	he	PRON	O	0			
+2	had	have	VERB	O-stative	0		stative	
+3	a	a	DET	O	0			
+4	guest	guest	NOUN	O-PERSON	0		PERSON	
+5	@-@	@-@	PROPN	O	0			
+6	starring	star	VERB	O-stative	0		stative	
+7	role	role	NOUN	O	0			
+8	on	on	ADP	O	0			
+9	the	the	DET	O	0			
+10	television	television	NOUN	B-COGNITION	0		COGNITION	
+11	series	series	NOUN	Ī	10	_		
+12	The	the	DET	O	0			
+13	Bill	bill	PROPN	O	0			
+14	in	in	ADP	O	0			
+15	2000	2000	NUM	O	0			
+16	.	.	PUNCT	O	0			

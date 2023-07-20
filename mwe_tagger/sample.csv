@@ -1,0 +1,4 @@
+tokens;lemmas;pos;mwe_tag;mwe_parent_offset;mwe_strength;sup_label
+[=,Robert,Boulter,=];[=,robert,boulter,=];[VERB,PROPN,PROPN,VERB];[O,B-PERSON,Ī,O];[0,0,2,0];[,PERSON,_,];[,,,]
+[Robert,Boulter,is,an,English,film,,,television,and,theatre,actor,.];[robert,boulter,be,an,english,film,,,television,and,theatre,actor,.];[PROPN,PROPN,AUX,DET,ADJ,NOUN,PUNCT,NOUN,CCONJ,NOUN,NOUN,PUNCT];[B-PERSON,Ī,O-stative,O,O,O-COMMUNICATION,O,O,O,O,O-PERSON,O];[0,1,0,0,0,0,0,0,0,0,0,0];[PERSON,_,stative,,,COMMUNICATION,,,,,PERSON,];[,,,,,,,,,,,]
+[He,had,a,guest,@-@,starring,role,on,the,television,series,The,Bill,in,2000];[he,have,a,guest,@-@,star,role,on,the,television,series,the,bill,in,2000];[PRON,VERB,DET,NOUN,PROPN,VERB,NOUN,ADP,DET,NOUN,NOUN,DET,PROPN,ADP,NUM];[O,O-stative,O,O-PERSON,O,O-stative,O,O,O,B-COGNITION,Ī,O,O,O,O];[0,0,0,0,0,0,0,0,0,0,10,0,0,0,0];[,stative,,PERSON,,stative,,,,COGNITION,_,,,,];[,,,,,,,,,,,,,,]
