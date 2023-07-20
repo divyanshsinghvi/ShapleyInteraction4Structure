@@ -24,12 +24,26 @@ def get_model():
 def get_samples(seq_len, N, k):
     tokenizer = GPT2TokenizerFast.from_pretrained(model_id, pad_token = '[PAD]')
     test = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")
-    encoding = tokenizer([test["text"][num] for num in [4, 11, 12, 16]],padding=True,  truncation=True,max_length =seq_len, return_tensors ='pt').input_ids
-    # encoding = tokenizer([test["text"][num] for num, val in enumerate(test['text']) if val != ''],padding=True,  truncation=True,max_length =seq_len, return_tensors ='pt').input_ids
+    
+    testlist_for_tokenizer = []
+    for t in test['text']:
+        if '=' in t or t=='' or t.strip() == '\n':
+            continue
+        # Removing '\n'
+        testlist_for_tokenizer.extend(t.split(".")[:-1])
+        if len(testlist_for_tokenizer) >= N+k+20:
+            break
+    
+    encoding = tokenizer(testlist_for_tokenizer, padding=True,  truncation=True, max_length=seq_len, return_tensors ='pt').input_ids
+    # encoding = tokenizer([test["text"][num] for num in [4, 11, 12, 16]],padding=True,  truncation=True,max_length =seq_len, return_tensors ='pt').input_ids
+    
+    
+    assert len(encoding)>= N+k
+    
     print(encoding.shape)
     X = encoding[:N+k,:seq_len-1]
     y = encoding[:N+k,seq_len-1]
-    return X, y
+    return X, y, testlist_for_tokenizer[:N+k]
 
 def get_logodds(logits, y = None):
     """ Calculates log odds from logits.
@@ -46,7 +60,7 @@ def get_logodds(logits, y = None):
 
     # pass logits through softmax, get the token corresponding score and convert back to log odds (as one vs all)
     logodds = np.apply_along_axis(calc_logodds, -1, logits.detach().numpy())
-
+    
     if y is None:
         logodds = np.max(logodds, axis=-1)
     else:
