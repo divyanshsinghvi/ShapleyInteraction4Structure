@@ -15,18 +15,6 @@ import torch
 from tqdm import tqdm
 import shap
 import llm_helper
-# device = "cuda"
-# model_id = "gpt2"
-# model = GPT2LMHeadModel.from_pretrained(model_id).to(device)
-# tokenizer = GPT2TokenizerFast.from_pretrained(model_id)
-
-# from datasets import load_dataset
-
-# test = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")
-# encodings = tokenizer(test["text"][4], return_tensors="pt")
-# explainer = shap.Explainer(model, tokenizer)
-# shap_values = explainer([test["text"][4][:60]])
-
 
 
 
