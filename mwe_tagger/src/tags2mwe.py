@@ -120,13 +120,13 @@ def process_sentence(words, lemmas, tags, labels, parents, sentId=None):
                 g.append(offset)
     
     # sanity check: number of tokens belonging to some MWE
-    assert len(set(sum(sgroups+wgroups,[])))==sum(1 for t in tags if t.upper()!='O'),(tags,sgroups,wgroups)
+    assert len(set(sum(sgroups+wgroups,[])))==sum(1 for t in tags if t.upper()[:1]!='O'),(tags,sgroups,wgroups)
     
     # sanity check: no token shared by multiple strong or multiple weak groups
     assert len(set(sum(sgroups,[])))==len(sum(sgroups,[])),(sgroups,tags,sentId)
     assert len(set(sum(wgroups,[])))==len(sum(wgroups,[])),(wgroups,tags,sentId)
     
-    data = {"words": words, "tags": tags, "_": sgroups, "~": wgroups}
+    data = {"toks": words, "tags": tags, "_": sgroups, "~": wgroups}
     if any(lemmas):
         data["lemmas"] = lemmas
     
@@ -146,7 +146,7 @@ def convert(inF, outF=sys.stdout):
                 if not words: continue
                 break
                     
-            parts = ln[:-1].decode('utf-8').split('\t')
+            parts = ln[:-1].split('\t')
             if len(parts)==9:
                 offset, word, lemma, POS, tag, parent, strength, label, sentId = parts
             else:
@@ -163,7 +163,7 @@ def convert(inF, outF=sys.stdout):
         
         data = process_sentence(words, lemmas, tags, labels, parents, sentId=sentId)
         
-        print(sentId, render(zip(*words)[0], data["_"], data["~"]), json.dumps(data), sep='\t', file=outF)
+        print(sentId, render(list(zip(*words))[0], data["_"], data["~"]), json.dumps(data), sep='\t', file=outF)
     
     while True:
         try:

@@ -76,7 +76,7 @@ class SupersenseDataSet(DataSet):
                 tag = 'O'
             elif tag not in self._labels:
                 tag = 'O'
-            tag = uintern(unicode(tag))
+            tag = uintern(str(tag))
             
         #pos = uintern(unicode(pos))
         #stemS = uintern(unicode(morph.stem(token,pos)))

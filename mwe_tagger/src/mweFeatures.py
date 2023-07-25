@@ -9,6 +9,7 @@ import sys, os, re, gzip, codecs, json
 from collections import Counter, defaultdict
 
 from nltk.corpus import wordnet as wn
+import sys
 
 from pyutil.memoize import memoize
 from pyutil.ds.beam import Beam
@@ -55,8 +56,9 @@ def loadClusters(clusterFile, oldClusterFormat=False):
                 clusterID += 1
         else:   # each line contains a cluster ID (bitstring for Brown clusters), a word type, and a count
             for ln in clusterF:
-                clusterID, w, n = ln[:-1].split('\t')
-                w = w.decode('utf-8')
+                print(ln, file=sys.stderr, end='andrej line test')
+                clusterID, w, n = ln[:-1].decode('utf-8').split('\t')
+                #w = w.decode('utf-8')
                 clusterMap[w] = clusterID
                 topClusterMembers[clusterID][w] = int(n)
     
@@ -231,7 +233,7 @@ CPOS_PAIRS = [{'V','V'},{'V','N'},{'V','R'},{'V','T'},{'V','M'},{'V','P'},
 DIGIT_RE = re.compile(r'\d')
 SENSENUM = re.compile(r'\.(\d\d|XX)')
 
-THRESHOLDS = [25,50,75,100,150]+range(200,1000,100)+range(10**3,10**4,10**3)+range(10**4,10**5,10**4)+range(10**5,10**6,10**5)+range(10**6,10**7,10**6)
+THRESHOLDS = [25,50,75,100,150]+list(range(200,1000,100))+list(range(10**3,10**4,10**3))+list(range(10**4,10**5,10**4))+list(range(10**5,10**6,10**5))+list(range(10**6,10**7,10**6))
 
 def extractFeatureValues(sent, j, usePredictedLabels=True, orders={0,1}, indexer=None,
                          candidatesThisSentence=None):
