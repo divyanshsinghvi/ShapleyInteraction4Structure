@@ -4,7 +4,7 @@ How to use:
 
 **END TO END**
 
-
+Run `run_sr_pipeline.sh <some file name>` on your environment which contains steps 1 from below instructions.
 
 **STEP BY STEP**
 
