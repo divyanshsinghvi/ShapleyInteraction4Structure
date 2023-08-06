@@ -2,6 +2,12 @@
 
 How to use:
 
+**END TO END**
+
+
+
+**STEP BY STEP**
+
 1. Recreate environment from `environment.yaml` (I use conda, but nltk, spacy, and cython are main dependencies so if you just copy those versions should be ok. The most important dependency seems to be cython)
 2. Follow instructions for creating document in `data_processing/process_wiki.ipynb`
 3. The document may have some empty lines which will throw an error in the MWE tagger, for this we can run `./preprocess.sh document` (I made this quickly for wiki dataset so may still have errors for other datasets). Be careful as this replaces strings in document.

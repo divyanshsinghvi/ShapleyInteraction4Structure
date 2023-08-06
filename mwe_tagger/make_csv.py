@@ -1,0 +1,85 @@
+import sys
+sys.path.append("../data_processing/")
+import pandas as pd
+from parse_dep import *
+import re
+from ast import literal_eval
+import tokenizations
+from datasets import load_dataset
+
+import argparse
+
+def get_dataset():
+    text = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")["text"]
+    # Remove empty lines
+    text = [w for w in text if w]
+    return text
+
+def preprocess_tags(df):
+    
+    df['d'] = df.apply(lambda x: literal_eval(x['d']), axis=1)
+    df = pd.concat([df, pd.json_normalize(df.d)],axis=1)
+    df = df.drop(columns=[0])
+    df['tokens'] = df['toks'].apply(lambda x: [y[0] for y in x])
+    df['sentence'] = df['sentence'].apply(lambda x: literal_eval(x).decode('utf-8'))
+    df['sent'] = df['sentence'].apply(lambda x: x.replace("_", " ").replace("~"," "))
+
+    return df 
+
+def list_to_index_dict(input_list):
+    index_dict = {}
+    
+    for index, sublist in enumerate(input_list):
+        for item in sublist:
+            if item in index_dict:
+                index_dict[item].append(index)
+            else:
+                index_dict[item] = [index]
+    
+    return index_dict
+
+def map_mwes_together(x, mwe_type):
+    """
+    ~: for strong
+    _: for weak
+    """
+    assert mwe_type in ["~", "_"], "MWE Type must be one of [~, _]"
+    mapped_mwes = []
+    for j, mwe in enumerate(x[mwe_type]):
+        mapped_mwes.append([])
+        for index in mwe:
+            
+            if index-1 in x['token_map_dict']:
+                for val in x['token_map_dict'][index-1]:
+                    mapped_mwes[j].append(val+1)
+                
+                
+    return mapped_mwes
+    
+def main():
+    
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("-f", "--file", help="MWE tagged file")
+    args = parser.parse_args()
+    mwe_file = args.file
+    
+    out_file = f"{mwe_file.split('.')[0]}.csv"
+    pipeline = get_spacy_pipeline()
+    
+    df = preprocess_tags(pd.read_csv(mwe_file, sep='\t', names=[0, 'sentence', 'd']))
+    print("MWE file original shape, ", df.shape)
+
+    text = get_dataset()
+    df['tokens_to_map'] = df.apply(lambda x: list(map(str, list(pipeline(x["sent"])))), axis=1)
+    df['token_map'] = df.apply(lambda x: tokenizations.get_alignments(x['tokens'],
+                                                                  x['tokens_to_map'])[1], axis=1)
+    
+    df['token_map_dict'] = df['token_map'].apply(lambda x: list_to_index_dict(x))
+    df['weak_mwe'] = df.apply(lambda x: map_mwes_together(x, "_"), axis=1)
+    df['strong_mwe'] = df.apply(lambda x: map_mwes_together(x, "~"), axis=1)
+
+    df.to_csv(out_file)
+
+
+if __name__ == "__main__":
+    main()
