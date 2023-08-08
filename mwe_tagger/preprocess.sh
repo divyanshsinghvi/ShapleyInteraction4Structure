@@ -6,4 +6,4 @@ else
     echo "$FILE does not exist."
 fi
 
-sed -i '' '/SPACE/d' $FILE
+sed -i '/SPACE/d' $FILE
