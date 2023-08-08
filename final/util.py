@@ -12,6 +12,7 @@ import os
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
+import llm_helper
 
 
 # Shapley explanations for models ------
@@ -52,6 +53,7 @@ class RegressionGame():
         S = np.array(list(key), dtype = int)
 
         replace = (-1 * S + 1).astype(bool)
+
         X_modified = np.tile(x, (X_bg.shape[0], 1))#.astype(np.float64)
         # print(X_modified)
         X_modified[:,replace] = X_bg[:,replace]

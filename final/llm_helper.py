@@ -1,5 +1,6 @@
 
 from transformers import GPT2LMHeadModel, GPT2TokenizerFast
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 from datasets import load_dataset
 
@@ -11,18 +12,25 @@ import scipy
 
 model_id = "gpt2"
 
-def get_prediction_fn(model, y = None):
+def get_prediction_fn(model, pred_mode=1):
     # return lambda x : np.max(model(x).logits.detach().numpy())
-    if y is None:
+
+    if pred_mode == 1:
         return lambda x : get_logodds(model(x).logits)
-    else:
-        return lambda x, y  : get_logodds(model(x).logits, y)
+    elif pred_mode == 2:
+        # Perplexity score
+        return lambda x : np.exp(model(x, labels=x.clone()).loss.detach().numpy())
+
 
 def get_model():
-    return GPT2LMHeadModel.from_pretrained(model_id)#.to(device)
+    # model = GPT2LMHeadModel.from_pretrained(model_id)#.to(device)
+    model = AutoModelForCausalLM.from_pretrained(model_id).cuda()
+    return model
 
 def get_samples(seq_len, N, k):
-    tokenizer = GPT2TokenizerFast.from_pretrained(model_id, pad_token = '[PAD]')
+    # tokenizer = GPT2TokenizerFast.from_pretrained(model_id)
+    tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True)
+    tokenizer.pad_token = tokenizer.eos_token
     test = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")
     
     testlist_for_tokenizer = []
@@ -45,7 +53,7 @@ def get_samples(seq_len, N, k):
     y = encoding[:N+k,seq_len-1]
     return X, y, testlist_for_tokenizer[:N+k]
 
-def get_logodds(logits, y = None):
+def get_logodds(logits):
     """ Calculates log odds from logits.
 
     This function passes the logits through softmax and then computes log odds for the output(target sentence) ids.
@@ -53,17 +61,15 @@ def get_logodds(logits, y = None):
     """
     # set output ids for which scores are to be extracted
     def calc_logodds(arr):
-        # probs = np.exp(arr) / np.exp(arr).sum(-1)
         probs = scipy.special.softmax(arr)
-        logodds = scipy.special.logit(probs)
-        return logodds
+        return probs
 
     # pass logits through softmax, get the token corresponding score and convert back to log odds (as one vs all)
     logodds = np.apply_along_axis(calc_logodds, -1, logits.detach().numpy())
+    logodds = np.linalg.norm(logodds, axis=-1)
+    # logodds = np.max(logodds, axis=-1)
+    logodds = np.linalg.norm(logodds, axis=-1)
     
-    if y is None:
-        logodds = np.max(logodds, axis=-1)
-    else:
-        logodds = logodds[:, np.array(range(logodds.shape[1])), np.repeat(y, logodds.shape[1])
-                          .reshape(logodds.shape[0], logodds.shape[1], 1)]
+
+
     return logodds
