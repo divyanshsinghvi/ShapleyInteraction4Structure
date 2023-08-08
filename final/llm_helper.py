@@ -23,35 +23,53 @@ def get_prediction_fn(model, pred_mode=1):
 
 
 def get_model():
-    # model = GPT2LMHeadModel.from_pretrained(model_id)#.to(device)
-    model = AutoModelForCausalLM.from_pretrained(model_id).cuda()
+    model = GPT2LMHeadModel.from_pretrained(model_id)#.to(device)
+    # model = AutoModelForCausalLM.from_pretrained(model_id).cuda()
     return model
 
-def get_samples(seq_len, N, k):
-    # tokenizer = GPT2TokenizerFast.from_pretrained(model_id)
-    tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True)
+def get_samples(seq_len, N, k, y = None):
+    tokenizer = GPT2TokenizerFast.from_pretrained(model_id)
+    # tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True)
     tokenizer.pad_token = tokenizer.eos_token
     test = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")
     
+    actual_index = []
     testlist_for_tokenizer = []
-    for t in test['text']:
+    for idx, t in enumerate(test['text']):
         if '=' in t or t=='' or t.strip() == '\n':
             continue
         # Removing '\n'
-        testlist_for_tokenizer.extend(t.split(".")[:-1])
+        testlist_for_tokenizer.extend([x for x in t.split(".")[:-1] if x != ''])
+        actual_index.append(idx)
         if len(testlist_for_tokenizer) >= N+k+20:
             break
-    
-    encoding = tokenizer(testlist_for_tokenizer, padding=True,  truncation=True, max_length=seq_len, return_tensors ='pt').input_ids
+    if seq_len == 0:
+        encoding = tokenizer(testlist_for_tokenizer, padding=True,  truncation=True, return_tensors ='pt').input_ids
+    else:
+        encoding = tokenizer(testlist_for_tokenizer, padding=True,  truncation=True, max_length=seq_len, return_tensors ='pt').input_ids
     # encoding = tokenizer([test["text"][num] for num in [4, 11, 12, 16]],padding=True,  truncation=True,max_length =seq_len, return_tensors ='pt').input_ids
-    
     
     assert len(encoding)>= N+k
     
     print(encoding.shape)
-    X = encoding[:N+k,:seq_len-1]
-    y = encoding[:N+k,seq_len-1]
-    return X, y, testlist_for_tokenizer[:N+k]
+    # assert (seq_len == 0)
+    assert (y is None)
+    if y is None:
+        if seq_len != 0:
+            X = encoding[:N+k, :seq_len]
+        else:
+            X = encoding[:N+k,:]
+    else:
+        if seq_len != 0:
+            X = encoding[:N+k,:seq_len]
+            y = encoding[:N+k,seq_len]
+        else:
+            assert False
+            
+    return  X, y, testlist_for_tokenizer[:N+k], actual_index[:N+k]
+
+
+
 
 def get_logodds(logits):
     """ Calculates log odds from logits.
