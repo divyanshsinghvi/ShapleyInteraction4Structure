@@ -63,7 +63,7 @@ def main():
     args = parser.parse_args()
     mwe_file = args.file
     
-    out_file = f"{mwe_file.split('.')[0]}.csv"
+    out_file = f"{mwe_file.split('.')[0]}.pkl"
     pipeline = get_spacy_pipeline()
     
     df = preprocess_tags(pd.read_csv(mwe_file, sep='\t', names=[0, 'sentence', 'd']))
@@ -78,7 +78,7 @@ def main():
     df['weak_mwe'] = df.apply(lambda x: map_mwes_together(x, "_"), axis=1)
     df['strong_mwe'] = df.apply(lambda x: map_mwes_together(x, "~"), axis=1)
 
-    df.to_csv(out_file)
+    df.to_pickle(out_file)
 
 
 if __name__ == "__main__":
