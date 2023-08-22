@@ -2,19 +2,32 @@ import spacy
 import networkx as nx
 from itertools import combinations
 from transformers import GPT2TokenizerFast
+from transformers import BertTokenizerFast
 
 
-def get_spacy_pipeline():
+def get_spacy_pipeline(model = 'gpt2'):
 
     nlp = spacy.load("en_core_web_sm")
-    tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
+
+    if model == 'gpt2':
+        tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
+    elif model == 'bert':
+        tokenizer = Bert2TokenizerFast.from_pretrained("bert-base-uncased")
 
     def GPT2Tokenize(text):
         tokens = tokenizer.tokenize(text)
         return spacy.tokens.Doc(nlp.vocab, words=tokens)
 
-    nlp.tokenizer = GPT2Tokenize
+    def Bert2Tokenize(text):
+        tokens = tokenizer.tokenize(text)
+        return spacy.tokens.Doc(nlp.vocab, words=tokens)
 
+
+    if model == 'gpt2':
+        nlp.tokenizer = GPT2Tokenize
+    elif model == 'bert':
+        nlp.tokenizer = Bert2Tokenize
+    
     return nlp
 
 def parse_sentences_mwe(dataset):
