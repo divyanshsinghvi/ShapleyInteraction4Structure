@@ -54,7 +54,7 @@ def parse_dependencies(pipeline, text:str) -> dict:
     
     return d
 
-def get_syntactic_distance(doc:spacy.tokens.Doc) -> dict:
+def get_syntactic_distance(doc:spacy.tokens.Doc, index=False) -> dict:
 
     edges = []
     for token in doc:
@@ -65,6 +65,10 @@ def get_syntactic_distance(doc:spacy.tokens.Doc) -> dict:
     syntactic_mapping = {}
 
     for c in combs:
-        syntactic_mapping[(doc[c[0]], doc[c[1]])] = nx.shortest_path_length(G, source=c[0], target=c[1])
+        if index:
+            syntactic_mapping[(c[0], c[1])] = nx.shortest_path_length(G, source=c[0], target=c[1])    
+        else:
+            syntactic_mapping[(doc[c[0]], doc[c[1]])] = nx.shortest_path_length(G, source=c[0], target=c[1])
+
 
     return syntactic_mapping
