@@ -10,7 +10,9 @@ import argparse
 pipeline = spacy.load("en_core_web_sm")
 
 def get_dataset():
-    text = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")["text"]
+    wiki = load_dataset("wikitext", "wikitext-2-raw-v1")
+    text = wiki['train']['text'] + wiki['test']['text'] + wiki['validation']['text']
+    #text = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")["text"]
     # Remove empty lines
     return text
 

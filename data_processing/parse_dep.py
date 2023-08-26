@@ -12,7 +12,7 @@ def get_spacy_pipeline(model = 'gpt2'):
     if model == 'gpt2':
         tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
     elif model == 'bert':
-        tokenizer = Bert2TokenizerFast.from_pretrained("bert-base-uncased")
+        tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
 
     def GPT2Tokenize(text):
         tokens = tokenizer.tokenize(text)
