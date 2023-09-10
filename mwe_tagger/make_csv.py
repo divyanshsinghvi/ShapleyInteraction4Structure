@@ -67,8 +67,8 @@ def main():
     df = preprocess_tags(pd.read_csv(mwe_file, sep='\t', names=[0, 'sentence', 'd']))
     print("MWE file original shape, ", df.shape)
 
-    df["syntactic_distance_tok"] = df["sent"].apply(lambda x: get_syntactic_distance(default_pipeline(x), index=False))
-    df["syntactic_distance_idx"] = df["sent"].apply(lambda x: get_syntactic_distance(default_pipeline(x), index=True))
+    df["syntactic_distance_tok"] = df["sent"].apply(lambda x: get_syntactic_distance(pipeline(x), index=False))
+    df["syntactic_distance_idx"] = df["sent"].apply(lambda x: get_syntactic_distance(pipeline(x), index=True))
 
     df['tokens_to_map'] = df.apply(lambda x: list(map(str, list(pipeline(x["sent"])))), axis=1)
     df['token_map'] = df.apply(lambda x: tokenizations.get_alignments(x['tokens'],

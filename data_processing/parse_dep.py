@@ -64,20 +64,19 @@ def get_syntactic_distance(doc:spacy.tokens.Doc, index=False, return_graph=False
     combs = list(combinations(list(range(len(doc))), 2))
     syntactic_mapping = {}
 
-    for c in combs:
-        if c[0] in G.nodes and c[1] in G.nodes:
+    fw_dict = nx.floyd_warshall(G, weight=None)
+    for node1, dist_map in fw_dict.items():
+        for node2, dist in dist_map.items():
             if index:
-                key = (c[0], c[1])
+                key = (node1, node2)
             else:
-                key = (doc[c[0]], doc[c[1]])
-            try:
-                syntactic_mapping[key] = nx.shortest_path_length(G, source=c[0], target=c[1])    
-            except nx.NetworkXNoPath:
-                syntactic_mapping[key] = float('-inf')
+                key = (doc[node1], doc[node2])
 
+            syntactic_mapping[key] = dist   
 
     if return_graph:
         return syntactic_mapping, G
+
     return syntactic_mapping
 
 def map_syntactic_distance(df):
