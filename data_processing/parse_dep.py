@@ -60,11 +60,16 @@ def get_syntactic_distance(doc:spacy.tokens.Doc, index=False, return_graph=False
     for token in doc:
         edges.extend([(token.i, child.i) for child in token.children])
     
+    if len(edges)== 0:
+        return {}
     G = nx.from_edgelist(edges)
     combs = list(combinations(list(range(len(doc))), 2))
     syntactic_mapping = {}
 
-    fw_dict = nx.floyd_warshall(G, weight=None)
+    nx.set_edge_attributes(G, values = 1, name = 'weight')
+    #print(G.edges(data = True))
+    fw_dict = nx.johnson(G, weight='weight')
+    #fw_dict = nx.floyd_warshall(G, weight=None)
     for node1, dist_map in fw_dict.items():
         for node2, dist in dist_map.items():
             if index:
