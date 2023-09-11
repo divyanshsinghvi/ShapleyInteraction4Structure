@@ -53,8 +53,12 @@ def map_mwes_together(x, mwe_type):
 def strip_g(l: list):
     return [i.replace("Ġ", "") for i in l]
 
+from tqdm.auto import tqdm
+
+
 def main():
     
+    tqdm.pandas()
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("-f", "--file", help="MWE tagged file")
     args = parser.parse_args()
@@ -66,9 +70,11 @@ def main():
     
     df = preprocess_tags(pd.read_csv(mwe_file, sep='\t', names=[0, 'sentence', 'd']))
     print("MWE file original shape, ", df.shape)
+    df = df.reset_index(drop=True)
 
-    df["syntactic_distance_tok"] = df["sent"].apply(lambda x: get_syntactic_distance(pipeline(x), index=False))
-    df["syntactic_distance_idx"] = df["sent"].apply(lambda x: get_syntactic_distance(pipeline(x), index=True))
+
+#    df["syntactic_distance_tok"] =  df["sent"].progress_apply(lambda x: get_syntactic_distance(pipeline(x), index=False))
+    df["syntactic_distance_idx"] = df["sent"].progress_apply(lambda x: get_syntactic_distance(pipeline(x), index=True))
 
     df['tokens_to_map'] = df.apply(lambda x: list(map(str, list(pipeline(x["sent"])))), axis=1)
     df['token_map'] = df.apply(lambda x: tokenizations.get_alignments(x['tokens'],
