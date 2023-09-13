@@ -77,7 +77,7 @@ def get_syntactic_distance(doc:spacy.tokens.Doc, index=False, return_graph=False
             else:
                 key = (doc[node1], doc[node2])
 
-            syntactic_mapping[key] = dist   
+            syntactic_mapping[key] = len(dist)-1   
 
     if return_graph:
         return syntactic_mapping, G
@@ -91,9 +91,13 @@ def map_syntactic_distance(df):
     for t0, t1 in dist:
         new_pair = []
         if t0 in mp:
-            new_pair.append(mp[t0])
+            a = mp[t0]
         if t1 in mp:
-            new_pair.append(mp[t1])
-        new_map[tuple(map(tuple, new_pair))] = dist[(t0, t1)]
+            b = mp[t1]
+
+        for c in mp.get(t0, []):
+            for d in mp.get(t1, []):
+                new_map[(c, d)] = dist[(t0, t1)]
+        #new_map[tuple(map(tuple, new_pair))] = dist[(t0, t1)]
 
     return new_map
