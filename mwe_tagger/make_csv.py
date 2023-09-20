@@ -61,32 +61,39 @@ def main():
     tqdm.pandas()
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("-f", "--file", help="MWE tagged file")
+    parser.add_argument("-m", "--model", help="bert|gpt")
     args = parser.parse_args()
     mwe_file = args.file
+
     
-    model = 'bert'
+    model = args.model
+
     out_file = f"{mwe_file.split('.')[0]}_{model}.pkl"
     pipeline = get_spacy_pipeline(model)
     
-    df = preprocess_tags(pd.read_csv(mwe_file, sep='\t', names=[0, 'sentence', 'd']))
-    print("MWE file original shape, ", df.shape)
-    df = df.reset_index(drop=True)
+    big_df = preprocess_tags(pd.read_csv(mwe_file, sep='\t', names=[0, 'sentence', 'd']))
+    print("MWE file original shape, ", big_df.shape)
+    big_df = big_df.reset_index(drop=True)
 
 
-#    df["syntactic_distance_tok"] =  df["sent"].progress_apply(lambda x: get_syntactic_distance(pipeline(x), index=False))
-    df["syntactic_distance_idx"] = df["sent"].progress_apply(lambda x: get_syntactic_distance(pipeline(x), index=True))
+    tot = len(big_df)
 
-    df['tokens_to_map'] = df.apply(lambda x: list(map(str, list(pipeline(x["sent"])))), axis=1)
-    df['token_map'] = df.apply(lambda x: tokenizations.get_alignments(x['tokens'],
-                                                                  #x['tokens_to_map'])[1], axis=1)
-                                                                  strip_g(x['tokens_to_map']))[1], axis=1)
-    
-    df['token_map_dict'] = df['token_map'].apply(lambda x: list_to_index_dict(x))
-    df["syntactic_distance_idx_mapped"] = df.apply(lambda x: map_syntactic_distance(x), axis=1)
-    df['weak_mwe'] = df.apply(lambda x: map_mwes_together(x, "_"), axis=1)
-    df['strong_mwe'] = df.apply(lambda x: map_mwes_together(x, "~"), axis=1)
+    for i, k in enumerate([[0, tot//4], [tot//4, tot//2], [tot//2,tot*3//4], [tot*3//4 , tot]]):
+        
+        df = big_df.iloc[k[0]: k[1]]
+        df["syntactic_distance_idx"] = df["sent"].progress_apply(lambda x: get_syntactic_distance(pipeline(x), index=True))
 
-    df.to_pickle(out_file)
+        df['tokens_to_map'] = df.progress_apply(lambda x: list(map(str, list(pipeline(x["sent"])))), axis=1)
+        df['token_map'] = df.progress_apply(lambda x: tokenizations.get_alignments(x['tokens'],
+                                                                      #x['tokens_to_map'])[1], axis=1)
+                                                                      strip_g(x['tokens_to_map']))[1], axis=1)
+        
+        df['token_map_dict'] = df['token_map'].progress_apply(lambda x: list_to_index_dict(x))
+        df["syntactic_distance_idx_mapped"] = df.progress_apply(lambda x: map_syntactic_distance(x), axis=1)
+        df['weak_mwe'] = df.progress_apply(lambda x: map_mwes_together(x, "_"), axis=1)
+        df['strong_mwe'] = df.progress_apply(lambda x: map_mwes_together(x, "~"), axis=1)
+
+        df.to_pickle(f'{out_file}_{i}')
 
 
 if __name__ == "__main__":

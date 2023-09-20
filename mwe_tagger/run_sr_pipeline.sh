@@ -7,6 +7,7 @@ set -eu
 set -o pipefail
 
 input=$1  # word and POS tag on each line (tab-separated)
+model=$2
 
 # predict MWEs with an existing model
 
@@ -20,4 +21,4 @@ python process_hf_dataset.py -f $input
 
 python src/tags2mwe.py $input.pred.tags > $input.pred.mwe
 
-python make_csv.py -f $input.pred.mwe
+python make_csv.py -f $input.pred.mwe -m $model
