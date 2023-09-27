@@ -15,6 +15,7 @@ class ExperimentRunner:
         self.SEQ_LEN = seq_len
         self.MODEL_NAME = model_name
         self.METHOD = method
+        self.SOFTMAX = False
         random.seed(42)
     
     def prepare_model(self):
@@ -56,7 +57,11 @@ class ExperimentRunner:
 
     def get_prediction_softmax(self, X, token_next):
         logits = self.model(X).logits
-        abc =  logits[0, token_next:, :].softmax(dim=-1)
+        if self.SOFTMAX:
+            abc =  logits[0, token_next:, :].softmax(dim=-1)
+        else:
+            abc =  logits[0, token_next:, :]
+
         if not self.CUDA:
             return abc.detach().numpy()
         else:
@@ -87,7 +92,7 @@ class ExperimentRunner:
         val = AB - A - B + phi
         
 
-        if self.METHOD == 100:
+        if self.METHOD == 105:
             val = AB - A - B + phi
             val = torch.divide(torch.linalg.norm(val, dim=1), torch.linalg.norm(AB, dim=1)).cpu()
             res_list = [(1, val.detach(), token_next)]
@@ -203,8 +208,9 @@ class ExperimentRunner:
             self.run_avg_interactions(suffix=suffix)
 
 if __name__  == '__main__':
-    ExperimentRunner(cuda=True, seq_len=50, model_name = 'bert', method=100).run_experiment(suffix='100') 
-    ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=100).run_experiment(suffix='100')
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'bert', method=105).run_experiment(suffix='100') 
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=105).run_experiment(suffix='100')
+    asdadsa
     #ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=1).run_experiment(avg=False, suffix='1')
     #ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=2).run_experiment(avg=False, suffix='2')
     #ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=3).run_experiment(avg=False, suffix='3')
