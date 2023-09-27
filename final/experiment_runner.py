@@ -6,14 +6,17 @@ import torch
 from tqdm import tqdm
 import numpy as np
 import pickle
+import random
 
 class ExperimentRunner:
-    def __init__(self, cuda, seq_len, model_name):
+    def __init__(self, cuda, seq_len, model_name, method):
         assert model_name in ['gpt', 'bert']
         self.CUDA = cuda
         self.SEQ_LEN = seq_len
         self.MODEL_NAME = model_name
-
+        self.METHOD = method
+        random.seed(42)
+    
     def prepare_model(self):
         if self.MODEL_NAME == 'bert':
             if self.CUDA:
@@ -83,15 +86,36 @@ class ExperimentRunner:
         # print(AB, A, B, phi)
         val = AB - A - B + phi
         
-        if self.CUDA:
-            val = torch.divide(torch.linalg.norm(val, dim=1), torch.linalg.norm(AB, dim=1)).cpu()
-        else:
-            val = np.divide(np.linalg.norm(val, axis=1), np.linalg.norm(AB, axis=1))
 
-        if self.CUDA:
+        if self.METHOD == 100:
+            val = AB - A - B + phi
+            val = torch.divide(torch.linalg.norm(val, dim=1), torch.linalg.norm(AB, dim=1)).cpu()
+            res_list = [(1, val.detach(), token_next)]
+            val = AB - A - B + phi
+            val = torch.divide(torch.linalg.norm(val, dim=1), torch.linalg.norm(AB - phi, dim=1)).cpu()
+            res_list.append((2, val.detach(), token_next))
+            val = AB - A - B + phi
+            val = torch.linalg.norm(val, dim=1).cpu()
+            res_list.append((3, val.detach(), token_next))
+            val = torch.divide(torch.linalg.norm(AB - A - B, dim=1), torch.linalg.norm(AB, dim=1)).cpu()
+            res_list.append((4, val.detach(), token_next))
+            return res_list
+
+        assert False
+
+        if self.METHOD == 1:
+            val = torch.divide(torch.linalg.norm(val, dim=1), torch.linalg.norm(AB, dim=1)).cpu()
             return val.detach(), token_next
-        else:
-            return val, token_next
+        elif self.METHOD == 2:
+            val = torch.divide(torch.linalg.norm(val, dim=1), torch.linalg.norm(AB - phi, dim=1)).cpu()
+            return val.detach(), token_next
+        elif self.METHOD == 3:
+            val = torch.linalg.norm(val, dim=1).cpu()
+            return val.detach(), token_next
+        elif self.method == 4:
+            val = torch.divide(torch.linalg.norm(AB - A - B, dim=1), torch.linalg.norm(AB, dim=1)).cpu()
+            return val.detach(), token_next
+
     
     def mwe_distance_interaction(self, encoded_row, row, col, row_number):
 
@@ -115,16 +139,18 @@ class ExperimentRunner:
         interactions = []
         encoded_len = len(encoded_row)
         for j in range( min(self.SEQ_LEN, encoded_len)):
-            for k in range(j+1, min(self.SEQ_LEN, encoded_len, j+10)):
-                if j+k >= encoded_len:
-                    continue
-                if encoded_row[j] == self.tokenizer.unk_token_id or encoded_row[k] == self.tokenizer.unk_token_id:
-                    continue
+            probability = 0.05
+            if random.random() < probability: 
+                for k in range(j+1, min(self.SEQ_LEN, encoded_len, j+9)):
+                    if j+k >= encoded_len:
+                        continue
+                    if encoded_row[j] == self.tokenizer.unk_token_id or encoded_row[k] == self.tokenizer.unk_token_id:
+                        continue
 
-                og = encoded_row.clone()
-                og = og.reshape(1, -1)
-                iv = self.interaction_value_di(og, [j, k])
-                interactions.append([iv, abs((j-k)), row_number, j, k])
+                    og = encoded_row.clone()
+                    og = og.reshape(1, -1)
+                    iv = self.interaction_value_di(og, [j, k])
+                    interactions.append([iv, abs((j-k)), row_number, j, k])
                 
         return interactions
     
@@ -150,10 +176,10 @@ class ExperimentRunner:
         weak_mwe_distance = [y for x in weak_mwe_distance for y in x]
         strong_mwe_distance = [y for x in strong_mwe_distance for y in x]
 
-        pd.DataFrame(weak_mwe_distance, columns = ['tensor', 'posdis', 'ignore', 'row_number', 'first_token', 'second_token']).to_pickle(f'weak_mwe_{self.model}{suffix}.pkl', compression='gzip')
-        pd.DataFrame(strong_mwe_distance, columns = ['tensor', 'posdis', 'ignore', 'row_number', 'first_token', 'second_token']).to_pickle(f'strong_mwe_{self.model}{suffix}.pkl', compression='gzip')
+        pd.DataFrame(weak_mwe_distance, columns = ['tensor', 'posdis', 'ignore', 'row_number', 'first_token', 'second_token']).to_pickle(f'weak_mwe_{self.MODEL_NAME}{suffix}.pkl', compression='gzip')
+        pd.DataFrame(strong_mwe_distance, columns = ['tensor', 'posdis', 'ignore', 'row_number', 'first_token', 'second_token']).to_pickle(f'strong_mwe_{self.MODEL_NAME}{suffix}.pkl', compression='gzip')
 
-    def run_avg_interactions(self):
+    def run_avg_interactions(self, suffix=''):
         average_distance = []
 
         for row_number, row in tqdm(self.test.iterrows(), total=self.test.shape[0]):
@@ -162,7 +188,31 @@ class ExperimentRunner:
                 encoded_row = encoded_row.cuda()
 
             
-            average_distance.extend(self.calculate_interaction(encoded_row, row_number))
+            if len(row['weak_mwe']) != 0:
+                average_distance.extend(self.calculate_interaction(encoded_row, row_number))
             if row_number % 1000 == 0:
                 print(len(average_distance))
-                pickle.dump(average_distance, open('average_distance_bert_exp3.pkl','wb'))
+                pickle.dump(average_distance, open(f'avg_{self.MODEL_NAME}{suffix}.pkl','wb'))
+
+    def run_experiment(self, mwe=True, avg=True, suffix=''):
+        self.prepare_data()
+        self.prepare_model()
+        if mwe:
+            self.run_mwe_interactions(suffix=suffix)
+        if avg:
+            self.run_avg_interactions(suffix=suffix)
+
+if __name__  == '__main__':
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'bert', method=100).run_experiment(suffix='100') 
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=100).run_experiment(suffix='100')
+    #ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=1).run_experiment(avg=False, suffix='1')
+    #ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=2).run_experiment(avg=False, suffix='2')
+    #ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=3).run_experiment(avg=False, suffix='3')
+
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'bert', method=1).run_experiment(mwe=False, suffix='1') 
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=1).run_experiment(mwe=False, suffix='1')
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'bert', method=2).run_experiment(mwe=False, suffix='2') 
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'bert', method=3).run_experiment(mwe=False, suffix='3')
+
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=2).run_experiment(mwe=False, suffix='2')
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=3).run_experiment(mwe=False, suffix='3')
