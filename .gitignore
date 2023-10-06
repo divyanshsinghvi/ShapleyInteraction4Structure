@@ -7,4 +7,5 @@ data/
 .ipynb_checkpoints/
 .DS_Store
 wiki*
-*.pth
+.vscode/
+sam_vit_h*
