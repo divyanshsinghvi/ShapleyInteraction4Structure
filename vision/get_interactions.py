@@ -6,6 +6,7 @@ from transformers import (
     AutoFeatureExtractor,
     AutoModelForImageClassification,
     ViTImageProcessor,
+    pipeline,
 )
 import torch
 from datasets import load_dataset
@@ -50,7 +51,7 @@ def main(args):
 
     elif args.mnist:
         data = load_dataset("mnist", split=split)
-        processor = AutoFeatureExtractor.from_pretrained(
+        processor = ViTImageProcessor.from_pretrained(
             "farleyknight-org-username/vit-base-mnist"
         )
         classifier = AutoModelForImageClassification.from_pretrained(
@@ -67,11 +68,19 @@ def main(args):
         reference_value=ref_val,
         cuda=cuda,
         phi=args.phi,
+        data_id=img_str,
     )
 
     for idx in range(args.num_samples):
-        img = np.array(data[idx]["img"])
         interactions = []
+        if img_str == "mnist":
+            img = np.array(data[idx]["image"])
+
+            if len(img.shape) == 2:
+                img = np.stack([img] * 3, axis=-1)
+            img = img.transpose((2, 0, 1))
+        else:
+            img = np.array(data[idx]["img"])
         all_pairs = img_processor.get_all_pairs(img)
         logger.info(f"all pairs for image {idx} generated")
 

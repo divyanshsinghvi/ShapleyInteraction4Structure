@@ -5,15 +5,19 @@ from typing import List, Tuple
 
 
 class ImageProcessor:
-    def __init__(self, processor, classifier, reference_value, cuda, phi):
+    def __init__(self, processor, classifier, reference_value, cuda, phi, data_id):
         self.processor = processor
         self.classifier = classifier
         self.ref_value = reference_value
         self.cuda = cuda
         self.phi = phi
+        self.data_id = data_id
 
     def get_all_pairs(self, img: np.array) -> List[Tuple]:
-        height, width, _ = img.shape
+        if len(img.shape) == 2:
+            height, width = img.shape
+        else:
+            height, width, _ = img.shape
         pairs = []
         for i in range(width):
             for j in range(height):
@@ -38,10 +42,10 @@ class ImageProcessor:
             img1[p1] = self.ref_value
             img1[p2] = self.ref_value
 
+        inputs = self.processor(img, return_tensors="pt")
+
         if self.cuda:
-            inputs = self.processor(img1, return_tensors="pt").to("cuda")
-        else:
-            inputs = self.processor(img1, return_tensors="pt")
+            inputs.to("cuda")
 
         with torch.no_grad():
             logits = self.classifier(**inputs).logits
