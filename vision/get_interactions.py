@@ -78,7 +78,7 @@ def main(args):
 
             if len(img.shape) == 2:
                 img = np.stack([img] * 3, axis=-1)
-            img = img.transpose((2, 0, 1))
+                
         else:
             img = np.array(data[idx]["img"])
         all_pairs = img_processor.get_all_pairs(img)
