@@ -15,6 +15,10 @@ import argparse
 import os
 import logging
 
+from time import perf_counter
+import pickle
+import gc
+
 logger = logging.getLogger("dp_logger")
 logger.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
@@ -78,20 +82,26 @@ def main(args):
 
             if len(img.shape) == 2:
                 img = np.stack([img] * 3, axis=-1)
-            img = img.transpose((2, 0, 1))
         else:
             img = np.array(data[idx]["img"])
-        all_pairs = img_processor.get_all_pairs(img)
-        logger.info(f"all pairs for image {idx} generated")
 
-        for p, pair in enumerate(all_pairs):
-            interactions.append(img_processor.get_interaction(pair, img))
+        dataset = CombDataset(img)
+        dataloader = DataLoader(dataset, batch_size=64, shuffle=False)
+        logger.info(f"all pairs for image {idx} generated")
+        start = perf_counter()
+
+        inf_values = img_processor.run_inference(dataloader=dataloader)
+        interactions = img_processor.get_interactions(inf_values)
 
         logger.info(f"all interactions for iamge {idx} calculated")
-        stacked = torch.cat(interactions)
-        path = os.path.join(output_dir, f"interactions_{img_str}_{split}_{idx}.pt")
-        torch.save(stacked, path)
+        path = os.path.join(output_dir, f"interactions_{img_str}_{split}_{idx}.pickle")
+        with open(path, "wb") as f:
+            pickle.dump(interactions, f)
         logger.info(f"interactions for image {idx} saved to {path}")
+
+        del inf_values
+        del interactions
+        gc.collect()
 
 
 if __name__ == "__main__":
