@@ -88,7 +88,7 @@ def main(args):
             for idx in range(args.num_samples)
         ]
     else:
-        images = [np.array(data[idx]["image"]) for idx in range(args.num_samples)]
+        images = [np.array(data[idx]["img"]) for idx in range(args.num_samples)]
 
     dataset = CombDataset(images)
     dataloader = DataLoader(dataset, batch_size=128, shuffle=False)
