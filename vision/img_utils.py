@@ -122,7 +122,7 @@ class ImageProcessor:
             den = np.linalg.norm(apb, ord=2, axis=-1)
 
             int_val = num / den
-            update = {all_pairs: int_val}
+            update = {((x1, y1), (x2, y2)): int_val}
             interactions.update(update)
 
         return interactions
@@ -132,11 +132,7 @@ class CombDataset(Dataset):
     def __init__(self, images):
         self.images = images
         self.H, self.W = images[0].shape[:2]
-        self.pairs = [
-            (i, j)
-            for i in range(self.H * self.W)
-            for j in range(i + 1, self.H * self.W)
-        ]
+        self.pairs = ImageProcessor.get_all_pairs(images[0])
 
     def __len__(self):
         # Original + every pixel + every pair of pixels
@@ -160,8 +156,8 @@ class CombDataset(Dataset):
 
         else:
             i, j = self.pairs[inner_idx - (H * W) - 1]
-            x1, y1 = divmod(i, W)
-            x2, y2 = divmod(j, W)
+            x1, y1 = i
+            x2, y2 = j
             img[x1, y1, :] = 0
             img[x2, y2, :] = 0
             return img, f"image{image_idx}_zero_{x1}_{y1}_{x2}_{y2}"
