@@ -5,6 +5,8 @@ from typing import List, Tuple
 from torch.utils.data import DataLoader, Dataset
 from time import perf_counter
 
+from tqdm import tqdm
+
 
 class ImageProcessor:
     def __init__(self, processor, classifier, reference_value, cuda, phi, data_id):
@@ -58,22 +60,16 @@ class ImageProcessor:
 
     def run_inference(self, dataloader):
         d = {}
-        batch_size = 64
         batch = 0
-        start = perf_counter()
         with torch.no_grad():
-            for batch_images, info in dataloader:
+            for batch_images, info in tqdm(dataloader, desc="Inference batches"):
                 processed = self.processor(batch_images, return_tensors="pt")
                 outputs = self.classifier(**processed).logits
                 soft_out = outputs.softmax(dim=-1).cpu()
                 update = dict(zip(info, soft_out))
                 d.update(update)
                 batch += 1
-                if batch % 10 == 0:
-                    print(
-                        f"Time for last {batch_size * batch} samples: {perf_counter()-start}"
-                    )
-                    start = perf_counter()
+
         return d
 
     def get_interaction(self, pixel_pair, img):
@@ -98,15 +94,15 @@ class ImageProcessor:
 
         return num / den
 
-    def get_interactions(self, img, inf_values: dict):
+    def get_interactions(self, img, idx, inf_values: dict):
         all_pairs = self.get_all_pairs(img)
         interactions = {}
         for (x1, y1), (x2, y2) in all_pairs:
-            a = inf_values[f"zero_{x1}_{y1}"]
-            b = inf_values[f"zero_{x2}_{y2}"]
-            apb = inf_values["original"]
+            a = inf_values[f"image{idx}_zero_{x1}_{y1}"]
+            b = inf_values[f"image{idx}_zero_{x2}_{y2}"]
+            apb = inf_values[f"image{idx}_original"]
             if self.phi:
-                phi = inf_values[f"zero_{x1}_{y1}_{x2}_{y2}"]
+                phi = inf_values[f"image{idx}_zero_{x1}_{y1}_{x2}_{y2}"]
                 num = apb - a - b + phi
             else:
                 num = apb - a - b
@@ -121,36 +117,39 @@ class ImageProcessor:
 
 
 class CombDataset(Dataset):
-    def __init__(self, image):
-        self.image = image
-        self.H, self.W = image.shape[:-1]
+    def __init__(self, images):
+        self.images = images
+        self.H, self.W = images[0].shape[:2]
+        self.pairs = [
+            (i, j)
+            for i in range(self.H * self.W)
+            for j in range(i + 1, self.H * self.W)
+        ]
 
     def __len__(self):
         # Original + every pixel + every pair of pixels
-        return 1 + self.H * self.W + (self.H * self.W * (self.H * self.W - 1)) // 2
+        return len(self.images) * (1 + (self.H * self.W) + (len(self.pairs)))
 
     def __getitem__(self, idx):
-        n_images = len(self.image)
         H, W = self.H, self.W
-        image_idx = idx // (1 + H * W + (H * W * (H * W - 1)) // 2)
-        inner_idx = idx % (1 + H * W + (H * W * (H * W - 1)) // 2)
+        # Place holder for image indexing
+        image_idx = idx // (1 + H * W + len(self.pairs))
+        inner_idx = idx % (1 + (H * W) + len(self.pairs))
 
-        img = np.copy(self.image)
+        img = np.copy(self.images[image_idx])
 
         if inner_idx == 0:
-            return img, "original"
+            return img, f"image{image_idx}_original"
 
         elif inner_idx <= H * W:
             x, y = (inner_idx - 1) // W, (inner_idx - 1) % W
             img[x, y, :] = 0
-            return img, f"zero_{x}_{y}"
+            return img, f"image{image_idx}_zero_{x}_{y}"
 
         else:
-            inner_idx -= H * W
-            pairs = [(i, j) for i in range(H * W) for j in range(i + 1, H * W)]
-            i, j = pairs[inner_idx]
-            x1, y1 = i // W, i % W
-            x2, y2 = j // W, j % W
+            i, j = self.pairs[inner_idx - (H * W) - 1]
+            x1, y1 = divmod(i, W)
+            x2, y2 = divmod(j, W)
             img[x1, y1, :] = 0
             img[x2, y2, :] = 0
-            return img, f"zero_{x1}_{y1}_{x2}_{y2}"
+            return img, f"image{image_idx}_zero_{x1}_{y1}_{x2}_{y2}"

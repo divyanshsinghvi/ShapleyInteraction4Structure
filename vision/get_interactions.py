@@ -75,33 +75,28 @@ def main(args):
         data_id=img_str,
     )
 
-    for idx in range(args.num_samples):
-        interactions = []
-        if img_str == "mnist":
-            img = np.array(data[idx]["image"])
+    if img_str == "mnist":
+        images = [
+            np.stack([np.array(data[idx]["image"])] * 3, axis=-1)
+            for idx in range(args.num_samples)
+        ]
+    else:
+        images = [np.array(data[idx]["image"]) for idx in range(args.num_samples)]
 
-            if len(img.shape) == 2:
-                img = np.stack([img] * 3, axis=-1)
-        else:
-            img = np.array(data[idx]["img"])
+    dataset = CombDataset(images)
+    dataloader = DataLoader(dataset, batch_size=128, shuffle=False)
 
-        dataset = CombDataset(img)
-        dataloader = DataLoader(dataset, batch_size=64, shuffle=False)
-        logger.info(f"all pairs for image {idx} generated")
-        start = perf_counter()
-
-        inf_values = img_processor.run_inference(dataloader=dataloader)
-        interactions = img_processor.get_interactions(inf_values)
-
-        logger.info(f"all interactions for iamge {idx} calculated")
+    inf_values = img_processor.run_inference(dataloader=dataloader)
+    start = perf_counter()
+    for idx, img in enumerate(images):
+        inter = img_processor.get_interactions(img, idx, inf_values=inf_values)
         path = os.path.join(output_dir, f"interactions_{img_str}_{split}_{idx}.pickle")
         with open(path, "wb") as f:
-            pickle.dump(interactions, f)
-        logger.info(f"interactions for image {idx} saved to {path}")
-
-        del inf_values
-        del interactions
-        gc.collect()
+            pickle.dump(inter, f)
+        logger.info(
+            f"interactions for image {idx} saved to {path}.\nGenerations took {perf_counter() - start} seconds"
+        )
+        start = perf_counter()
 
 
 if __name__ == "__main__":
