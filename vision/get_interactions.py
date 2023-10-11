@@ -43,6 +43,11 @@ def main(args):
 
     ref_val = args.reference
     cuda = True if torch.cuda.is_available() else False
+    if torch.backends.mps.is_available() and torch.backends.mps.is_built():
+        mps = True
+    else:
+        mps = False
+
     split = "test"
 
     if args.cifar:
@@ -65,6 +70,8 @@ def main(args):
 
     if cuda:
         classifier.to("cuda")
+    elif mps:
+        classifier.to("mps")
 
     img_processor = ImageProcessor(
         processor=processor,
