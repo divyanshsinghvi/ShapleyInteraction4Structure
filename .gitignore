@@ -9,3 +9,6 @@ data/
 wiki*
 .vscode/
 sam_vit_h*
+*.pth
+final/*.pkl
+mwe_tagger/
