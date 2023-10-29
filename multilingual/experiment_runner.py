@@ -1,5 +1,5 @@
 
-from transformers import XLMRobertaForTokenClassification, XLMRobertaTokenizerFast
+from transformers import XLMRobertaForTokenClassification, XLMRobertaTokenizerFast, XLMRobertaForMaskedLM
 from datasets import load_dataset
 import pandas as pd
 import torch
@@ -21,9 +21,9 @@ class ExperimentRunner:
     def prepare_model(self):
         if self.MODEL_NAME == 'xlm-roberta-base':
             if self.CUDA:
-                self.model = XLMRobertaForTokenClassification.from_pretrained('xlm-roberta-base').cuda()
+                self.model = XLMRobertaForMaskedLM.from_pretrained('xlm-roberta-base').cuda()
             else:
-                self.model = XLMRobertaForTokenClassification.from_pretrained("xlm-roberta-base")
+                self.model = XLMRobertaForMaskedLM.from_pretrained("xlm-roberta-base")
 
             self.tokenizer= XLMRobertaTokenizerFast.from_pretrained('xlm-roberta-base', use_fast=True, add_special_tokens=False)
         else:
