@@ -9,11 +9,12 @@ import pickle
 import random
 
 class ExperimentRunner:
-    def __init__(self, cuda, seq_len, model_name, method):
+    def __init__(self, cuda, seq_len, model_name, method, lang):
         assert model_name in ['xlm-roberta-base']
         self.CUDA = cuda
         self.SEQ_LEN = seq_len
         self.MODEL_NAME = model_name
+        self.LANGUAGE = lang
         self.METHOD = method
         self.SOFTMAX = False
         random.seed(42)
@@ -32,7 +33,7 @@ class ExperimentRunner:
 
 
     def load_data(self):
-        if self.MODEL_NAME == 'xlm-roberta-base':
+        if self.LANGUAGE == 'turkish':
             dataset = load_dataset("turkish-nlp-suite/turkish-wikiNER")
             return dataset['test']['tokens'] + dataset['validation']['tokens'] + dataset['train']['tokens']
 
@@ -192,8 +193,8 @@ class ExperimentRunner:
             mwes.append(mwe)
             if row_number % 1000 == 0:
                 print(len(average_distance))
-                pickle.dump(average_distance, open(f'avg_{self.MODEL_NAME}{suffix}.pkl','wb'))
-                pickle.dump(mwes, open(f'mwe_{self.MODEL_NAME}{suffix}.pkl','wb'))
+                pickle.dump(average_distance, open(f'avg_{self.MODEL_NAME}{suffix}{self.LANGUAGE}.pkl','wb'))
+                pickle.dump(mwes, open(f'mwe_{self.MODEL_NAME}{suffix}{self.LANGUAGE}.pkl','wb'))
                 
                 
     def run_experiment(self, mwe=True, avg=True, suffix=''):
@@ -202,5 +203,5 @@ class ExperimentRunner:
         self.run_avg_interactions(suffix=suffix)
 
 if __name__  == '__main__':
-    ExperimentRunner(cuda=True, seq_len=50, model_name = 'xlm-roberta-base', method=105).run_experiment(suffix='100') 
+    ExperimentRunner(cuda=True, seq_len=50, model_name = 'xlm-roberta-base', method=105, lang='turkish').run_experiment(suffix='100') 
 
