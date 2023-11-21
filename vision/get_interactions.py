@@ -90,7 +90,7 @@ def main(args):
     else:
         images = [np.array(data[idx]["img"]) for idx in range(args.num_samples)]
 
-    dataset = CombDataset(images)
+    dataset = CombDataset(images, args.reference)
     dataloader = DataLoader(dataset, batch_size=128, shuffle=False)
 
     inf_values = img_processor.run_inference(dataloader=dataloader)
@@ -131,7 +131,7 @@ if __name__ == "__main__":
         "-r",
         "--reference",
         type=int,
-        help="Reference value for image, if 0 then pixel values will be set to 0, else noise will be added",
+        help="Reference value for image, if 0 then pixel values will be set to 0, 1 indicates average pixel across channel, 2 indicates local blur and average of selected pixels",
     )
 
     args = parser.parse_args()
