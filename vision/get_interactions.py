@@ -91,7 +91,7 @@ def main(args):
         images = [np.array(data[idx]["img"]) for idx in range(args.num_samples)]
 
     dataset = CombDataset(images, args.reference)
-    dataloader = DataLoader(dataset, batch_size=128, shuffle=False)
+    dataloader = DataLoader(dataset, batch_size=64, shuffle=False)
 
     inf_values = img_processor.run_inference(dataloader=dataloader)
     start = perf_counter()
