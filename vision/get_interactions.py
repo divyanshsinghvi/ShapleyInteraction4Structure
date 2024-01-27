@@ -36,6 +36,7 @@ def main(args):
     ), "Need to choose one of cifar/mnist for experiments, not both"
 
     output_dir = os.path.abspath(args.output)
+    offset = args.offset
 
     if not os.path.exists(output_dir):
         logger.info(f"creating output directory {output_dir}")
@@ -84,11 +85,13 @@ def main(args):
 
     if img_str == "mnist":
         images = [
-            np.stack([np.array(data[idx]["image"])] * 3, axis=-1)
+            np.stack([np.array(data[idx + offset]["image"])] * 3, axis=-1)
             for idx in range(args.num_samples)
         ]
     else:
-        images = [np.array(data[idx]["img"]) for idx in range(args.num_samples)]
+        images = [
+            np.array(data[idx + offset]["img"]) for idx in range(args.num_samples)
+        ]
 
     dataset = CombDataset(images, args.reference)
     dataloader = DataLoader(dataset, batch_size=64, shuffle=False)
@@ -97,7 +100,9 @@ def main(args):
     start = perf_counter()
     for idx, img in enumerate(images):
         inter = img_processor.get_interactions(img, idx, inf_values=inf_values)
-        path = os.path.join(output_dir, f"interactions_{img_str}_{split}_{idx}.pickle")
+        path = os.path.join(
+            output_dir, f"interactions_{img_str}_{split}_{idx+offset}.pickle"
+        )
         with open(path, "wb") as f:
             pickle.dump(inter, f)
         logger.info(
@@ -132,6 +137,10 @@ if __name__ == "__main__":
         "--reference",
         type=int,
         help="Reference value for image, if 0 then pixel values will be set to 0, 1 indicates average pixel across channel, 2 indicates local blur and average of selected pixels",
+    )
+
+    parser.add_argument(
+        "-f", "--offset", type=int, help="Offset to iterate over the image"
     )
 
     args = parser.parse_args()
