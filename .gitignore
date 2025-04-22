@@ -11,4 +11,8 @@ wiki*
 sam_vit_h*
 *.pth
 final/*.pkl
+final/*.png
 mwe_tagger/
+multilingual/*.pdf
+multilingual/*.png
+multilingual/*.pkl*

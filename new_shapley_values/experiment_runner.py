@@ -8,6 +8,9 @@ import numpy as np
 import pickle
 import random
 import gzip
+import os
+import gc
+
 
 class ExperimentRunner:
     def __init__(self, cuda, seq_len, model_name, method):
@@ -17,8 +20,8 @@ class ExperimentRunner:
         self.MODEL_NAME = model_name
         self.METHOD = method
         self.SOFTMAX = False
-        self.RIGHT_MAX = 4
-        self.NUMBER_OF_PERM = 5
+        self.RIGHT_MAX = 6
+        self.NUMBER_OF_PERM = 4
         self.NUMBER_OF_ROWS = 4
         random.seed(42)
 
@@ -99,11 +102,12 @@ class ExperimentRunner:
         test['length'] = test['sentence'].str.split().str.len()
         test = test[~((test['weak_mwe'].str.len()==0) & (test['strong_mwe'].str.len()==0))]
         test = test.drop(columns = ['syntactic_distance_idx', 'lemmas', 'd', 'toks', 'tags'], errors='ignore')
+        test = test.rename_axis('row_number').reset_index()
+        print(len(test))
         self.test = test
 
 
     def interaction_value_di(self, X, start_end_row):
-        print(start_end_row)
         perms = self.generate_perm(self.NUMBER_OF_PERM)
         results = []
 
@@ -143,6 +147,7 @@ class ExperimentRunner:
                 logits = torch.mean(logits, dim=0).cpu().detach()
 
                 smax_ab = torch.linalg.norm(smax_ab, dim=-1).cpu().detach()
+                smax_ab = smax_ab.unflatten(0, (smax_ab.shape[0]//X.shape[0], X.shape[0]))
                 smax_ab = torch.mean(smax_ab, dim=0).cpu().detach()
 
                 results.append([l, r, smax, logits, smax_ab, start_end_row])
@@ -159,28 +164,40 @@ class ExperimentRunner:
     def run_avg_interactions(self, suffix=''):
         average_distance = []
 
-        i = 0
+        i = 1
         for start_row in tqdm(range(0, self.test.shape[0], self.NUMBER_OF_ROWS), total=self.test.shape[0] // self.NUMBER_OF_ROWS + 1):
+
         # for row_number, row in tqdm(self.test.iterrows(), total=self.test.shape[0]):
             end_row = min(start_row +  self.NUMBER_OF_ROWS-1, self.test.shape[0])
-            batch = self.test.iloc[start_row:end_row]['sentence'].to_list()
-            encoded_row =  self.tokenizer(batch, padding=True,  truncation=True, max_length=self.SEQ_LEN, return_tensors ='pt').input_ids.detach()
+            if os.path.exists(f'output2/avg_2_{self.MODEL_NAME}{suffix}_{1000*i}.pkl'):
+                if end_row <= 1000*i:
+                    continue
+                else:
+                    print(f"{i} {1000*i}")
+                    i=i+1
+
+            batch = self.test.iloc[start_row:end_row+1]['sentence'].to_list()
+            encoded_row =  self.tokenizer(batch, padding='max_length',  truncation=True, max_length=self.SEQ_LEN, return_tensors ='pt').input_ids.detach()
             if self.CUDA:
                 encoded_row = encoded_row.cuda()
 
             try:
                 average_distance.extend(self.calculate_interaction(encoded_row, list(range(start_row, end_row+1))))
             except:
+                print("Pass")
                 pass
-            if (end_row+1) > 2^i+100 == 0:
+            if (end_row) >= 1000*i:
+                print(f"{end_row+1} {1000*i}")
+                
+                print(len(average_distance))
+                with gzip.open(f'output2/avg_2_{self.MODEL_NAME}{suffix}_{1000*i}.pkl','wb') as f:
+                    pickle.dump(average_distance, f)
                 i += 1
-                print(len(average_distance))
-                with gzip.open(f'avg_2_{self.MODEL_NAME}{suffix}.pkl','wb') as f:
-                    pickle.dump(average_distance, f)
-            if (end_row+1) == 10:
-                print(len(average_distance))
-                with gzip.open(f'avg_2_{self.MODEL_NAME}{suffix}.pkl','wb') as f:
-                    pickle.dump(average_distance, f)
+                del average_distance[:]
+                gc.collect()
+
+        with gzip.open(f'output2/avg_2_{self.MODEL_NAME}{suffix}_all.pkl','wb') as f:
+            pickle.dump(average_distance, f)
 
 
     def run_experiment(self, avg=True, suffix=''):
@@ -190,8 +207,8 @@ class ExperimentRunner:
             self.run_avg_interactions(suffix=suffix)
 
 if __name__  == '__main__':
-    ExperimentRunner(cuda=True, seq_len=20, model_name = 'bert', method=105).run_experiment(suffix='100') 
     ExperimentRunner(cuda=True, seq_len=20, model_name = 'gpt', method=105).run_experiment(suffix='100')
+    ExperimentRunner(cuda=True, seq_len=20, model_name = 'bert', method=105).run_experiment(suffix='100') 
     asdadsa
     #ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=1).run_experiment(avg=False, suffix='1')
     #ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=2).run_experiment(avg=False, suffix='2')
