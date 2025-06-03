@@ -5,13 +5,12 @@ import soundfile as sf
 import torch
 import numpy as np
 import pandas as pd
-from pydub import AudioSegment
 from tqdm import tqdm
 import torch.nn.functional as F
 
 import io
-torch.cuda.set_device(1)
-print(torch.cuda.current_device())
+#torch.cuda.set_device(1)
+#print(torch.cuda.current_device())
 
 
 class Wav2VecExperimentRunner:
@@ -36,7 +35,7 @@ class Wav2VecExperimentRunner:
     #     return waveform, sample_rate
 
     def load_data(self):
-        waveform, sample_rate = sf.read('/mnt/Data/raghav/shapley_residuals_llm/final/data/common_voice_en_38487410.wav')
+        waveform, sample_rate = sf.read('common_voice_sample.wav')
         return waveform, sample_rate
 
 
@@ -46,7 +45,7 @@ class Wav2VecExperimentRunner:
     #     self.test = [test]
 
     def prepare_data(self):
-        df=pd.read_csv('/mnt/Data/raghav/shapley_residuals_llm/final/data/output_complete_mapped.csv')
+        df=pd.read_csv('common_voice_sample_phonemes.csv')
         self.test=df
         # print('data: {}'.format(self.test))
 
@@ -114,13 +113,18 @@ class Wav2VecExperimentRunner:
         # Pad only the second dimension (left and right)
         return F.pad(tensor, (0, 0, 0, padding_size), 'constant', 0)
     def interaction_value_di(self, row, PhonemeA,PhonemeB,PhonemeA_start,PhonemeB_start,PhonemeA_end,PhonemeB_end,PhonemeA_dur,PhonemeB_dur):
+        print(PhonemeA, PhonemeB)
+
         # token1, token2 = tokens
 
         # if self.MODEL_NAME == 'facebook/wav2vec2-base-960hs':
         #     token_next = 0
         # else:
         #     raise Exception("Not Implemented")
-        waveform, sample_rate_og = sf.read('/mnt/Data/raghav/shapley_residuals_llm/final/clips_wav/'+row['wav_file_name'])
+        waveform, sample_rate_og = sf.read('common_voice_sample.wav')
+        print("------------------------")
+        print(waveform.size, sample_rate_og)
+        print(waveform, sample_rate_og)
         # audio = AudioSegment.from_file('/mnt/Data/raghav/shapley_residuals_llm/final/data/'+row['wav_file_name'])
         input_values = self.tokenizer(waveform, return_tensors="pt", padding='max_length',max_length=399).input_values.to(self.device)
 
@@ -283,6 +287,7 @@ class Wav2VecExperimentRunner:
             }
             interaction_data["Shap Res"] = shap_res
             interactions.append(interaction_data)
+        print(interactions)
         return interactions
 
 
@@ -313,16 +318,27 @@ class Wav2VecExperimentRunner:
     def run_avg_interactions(self, suffix=''):
         average_distance = []
         mwes = []
-
+        print(self.test)
         # for row_number, row in tqdm(enumerate(self.test), total=len(self.test)):
-        self.test=self.test.groupby(['wav_file_name', 'txt_file_name', 'textgrid_name'])
-        self.test = self.test.agg({
-            'phoneme': lambda x: list(x),
-            'phoneme_start': lambda x: list(x),
-            'phoneme_end': lambda x: list(x),
-            'phoneme_duration': lambda x: list(x)
-        }).reset_index()
-        self.test=self.test.sample(n=500, random_state=42)
+        # self.test=self.test.groupby(['wav_file_name', 'txt_file_name', 'textgrid_name'])
+        # self.test = self.test.agg({
+        #     'phoneme': lambda x: list(x),
+        #     'phoneme_start': lambda x: list(x),
+        #     'phoneme_end': lambda x: list(x),
+        #     'phoneme_duration': lambda x: list(x)
+        # }).reset_index()
+        # self.test = self.test.rename(columns = {'start' : 'phoneme_start', 'end': 'phoneme_end'})
+        # self.test = self.test.agg({'phoneme': lambda x : list(x), 'phoneme_start': lambda x : list(x), 'phoneme_end': lambda x : list(x)})
+        self.test = pd.DataFrame([{
+            "phoneme": self.test["phoneme"].tolist(),
+            "phoneme_start": self.test["start"].tolist(),
+            "phoneme_end": self.test["end"].tolist(),
+            "phoneme_duration": (self.test["end"] - self.test["start"]).tolist()
+        }])
+
+        print(self.test)
+
+        # self.test=self.test.sample(n=5, random_state=42)
         results = []
         for index, row in self.test.iterrows():
             print('INDEX: {}:'.format(index))
@@ -364,5 +380,5 @@ class Wav2VecExperimentRunner:
         self.run_avg_interactions(suffix=suffix)
 
 if __name__  == '__main__':
-    Wav2VecExperimentRunner(cuda=True, model_name = 'facebook/wav2vec2-base-960h').run_experiment(suffix='100')
+    Wav2VecExperimentRunner(cuda=False, model_name = 'facebook/wav2vec2-base-960h').run_experiment(suffix='100')
         # Main experiment logic
