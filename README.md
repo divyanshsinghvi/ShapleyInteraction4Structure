@@ -71,7 +71,8 @@ cd language/mwe_tagger
 
 model_names : ['gpt2', 'bert']
 
-Place the MWE tagger outputs (`bert_bert.pkl_*` or `gpt_gpt.pkl_*`) in `language/mwe_tagger/` and run:
+Places the MWE tagger outputs at (`bert_bert.pkl_*` or `gpt_gpt.pkl_*`) in `language/mwe_tagger/`
+Then run:
 
 ```bash
 python language/language_runner.py
