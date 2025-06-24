@@ -54,7 +54,33 @@ By doing so, you can test:
 
 ### 1️⃣ Install Environment
 
+Create the environment using `conda.yaml`:
+
 ```bash
-# Using conda (recommended)
-conda env create -f conda.yaml
+conda env create -f conda.yaml -n shapley_llm
 conda activate shapley_llm
+```
+
+### 2️⃣ Run Text Experiments
+
+1. Generate Language Data
+```bash
+cd language/mwe_tagger
+./run_sr_pipeline.sh <model_name> <model_name>
+```
+
+model_names : ['gpt2', 'bert']
+
+Place the MWE tagger outputs (`bert_bert.pkl_*` or `gpt_gpt.pkl_*`) in `language/mwe_tagger/` and run:
+
+```bash
+python language/language_runner.py
+```
+
+### 3️⃣ Run Speech Experiments
+
+Add audio files to `speech_data/mfa_inp_new/` and phoneme CSVs to `speech_data/extracted_phonemes/`. Results are written to `speech_data/stii_outputs_fix/`.
+
+```bash
+python speech/speech_runner.py
+```
