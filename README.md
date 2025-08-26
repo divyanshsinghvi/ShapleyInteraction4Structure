@@ -81,6 +81,8 @@ python language/language_runner.py
 ### 3️⃣ Run Speech Experiments
 
 Add audio files to `speech_data/mfa_inp_new/` and phoneme CSVs to `speech_data/extracted_phonemes/`. Results are written to `speech_data/stii_outputs_fix/`.
+To generate the files and csv use files at speech/data_utils/ 
+
 
 ```bash
 python speech/speech_runner.py
