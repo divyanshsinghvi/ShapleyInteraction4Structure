@@ -80,7 +80,7 @@ class ExperimentRunner:
         A = self.get_prediction_softmax(X_t1, token_next)
         
         X_t2 = X.clone()
-        X_t2[0,token1] = self.tokenizer.pad_token_id
+        X_t2[0,token2] = self.tokenizer.pad_token_id
         B = self.get_prediction_softmax(X_t2, token_next)
 
         X_t12 = X.clone()
@@ -188,3 +188,4 @@ class ExperimentRunner:
 if __name__  == '__main__':
     ExperimentRunner(cuda=True, seq_len=50, model_name = 'bert', method=1).run_experiment(suffix='') 
     ExperimentRunner(cuda=True, seq_len=50, model_name = 'gpt', method=1).run_experiment(suffix='')
+
