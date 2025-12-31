@@ -1,6 +1,6 @@
 # 📚 Using Shapley Interactions to Understand How Models Use Structure
 
-[![arXiv](https://img.shields.io/badge/arXiv-2403.13106v2-b31b1b.svg)](https://arxiv.org/abs/2403.13106v2)
+[![arXiv](https://img.shields.io/badge/arXiv-2403.13106-b31b1b.svg)](https://arxiv.org/abs/2403.13106)
 [![ACL 2025](https://img.shields.io/badge/ACL--2025-Paper-blue)](https://aclanthology.org/2025.acl-long.1011)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
